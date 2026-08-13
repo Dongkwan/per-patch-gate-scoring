@@ -66,7 +66,7 @@ Identical content; the second is co-located with the figure it draws.
 
 | Column | Description |
 |---|---|
-| `class` | `A1` foreign-application identifier; `A2` collector sentinel string; `A3` non-locator value (ISO-8601 timestamp); `B` well-formed in the subject's namespace, undetermined |
+| `class` | `A1` foreign-application identifier; `A2` collector sentinel string; `A3` non-locator value (ISO-8601 timestamp); `B` everything not provably invalid, undetermined |
 | `n` | Count. A1 14, A2 4, A3 1, B 22 |
 
 Group A = A1 + A2 + A3 = 19 of 41 (46.3 %): values that provably cannot be a
@@ -120,7 +120,7 @@ Contextual n=5 replication across both platforms (24 cells).
 | `n` | Runs in the cell (always 5) |
 | `successes` | Runs ending in a repaired, passing test |
 | `mttr_mean_s`, `mttr_std_s` | Mean and SD over **successful runs only**; empty when there were none |
-| `successes_imputed` | `yes` for two cells whose batch aborted before writing a summary. Their logs record no passing run, so they are counted 0/5. The flag exists so the imputation is never carried silently. |
+| `count_source` | Where `successes` was read from. `batch summary` for 22 cells. For two cells the batch aborted before writing its JSON summary, so the value is `run log (summary not written)`; their logs still record all five runs, none passing, so the 0/5 is observed rather than imputed. |
 
 Totals: android 42/60, web 12/60.
 

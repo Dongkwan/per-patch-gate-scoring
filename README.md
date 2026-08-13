@@ -158,9 +158,13 @@ Read these before drawing conclusions from the files.
   echo. Because the gate reads that value from the agent's own patch request,
   it may differ from the reconstruction. The `class` column inherits this
   uncertainty.
-- **Group B is undetermined, not sound.** The 22 group-B values are well formed
-  in the subject's namespace, but the logs truncate both the report echo and
-  the collected UI hierarchy, so they cannot be shown to be live facts.
+- **Group B is a residual class, not a homogeneous one.** It holds everything
+  the A rules did not catch: eight subject-namespace identifiers, four
+  assertion text values (type-appropriate for their patch site, since an
+  assertion fault's oracle is a string rather than a locator), and ten
+  selector expressions or namespace prefixes the log truncated. It is
+  undetermined rather than sound — the logs truncate both the report echo and
+  the collected UI hierarchy, so none of it can be shown to be a live fact.
 - **Rejection correctness is not observable.** A rejected patch is never
   executed, so this data can establish false acceptance but not false
   rejection.
