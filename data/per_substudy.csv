@@ -1,0 +1,5 @@
+substudy,runs,admitted,rejected,false_acceptances,fa_rate_pct
+Android replication (n=5),60,67,11,20,29.9
+Paired ablation (n=5),10,8,1,4,50.0
+Extended paired (n=10),80,54,27,10,18.5
+Wikipedia re-run (n=10),30,14,6,7,50.0

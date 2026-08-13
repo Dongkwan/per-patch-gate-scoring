@@ -1,0 +1,174 @@
+[
+  {
+    "app": "ankidroid",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 448.9,
+    "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 102.97,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 84.8,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 83.21,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 82.18,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 94.2,
+        "steps": 7
+      }
+    ],
+    "gvpv_fail_count": 1,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 457.4,
+    "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_off_20260801_013841.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 80.02,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 79.11,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 80.62,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 77.78,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 6
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 1,
+    "elapsed_s": 701.7,
+    "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 4,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 5,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 1,
+    "elapsed_s": 622.2,
+    "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_off_20260801_015800.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 4,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 5,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 2
+  }
+]

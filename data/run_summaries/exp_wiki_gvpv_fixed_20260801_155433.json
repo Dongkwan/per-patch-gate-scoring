@@ -1,0 +1,246 @@
+[
+  {
+    "app": "wikipedia",
+    "scenario": "S1",
+    "gvpv_on": true,
+    "elapsed_s": 255.6,
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 25.51
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 21.2
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 23.17
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 22.41
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 32.22
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 36.19
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 26.8
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 22.39
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 21.61
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 22.59
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "disabled_hits": 0,
+    "log": "exp_wiki_gvpv_fixed_S1_gvpv_on_20260801_145337.log"
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S1",
+    "gvpv_on": false,
+    "elapsed_s": 727.6,
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 3,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 4,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 24.63
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 24.59
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 23.22
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 24.19
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 23.78
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 24.42
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "disabled_hits": 0,
+    "log": "exp_wiki_gvpv_fixed_S1_gvpv_off_20260801_145753.log"
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S2",
+    "gvpv_on": true,
+    "elapsed_s": 1465.6,
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 95.06
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 100.14
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 105.8
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 93.6
+      },
+      {
+        "run": 6,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 103.77
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 93.0
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 103.22
+      },
+      {
+        "run": 10,
+        "success": false,
+        "mttr_s": 0.0
+      }
+    ],
+    "gvpv_fail_count": 6,
+    "disabled_hits": 0,
+    "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log"
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S2",
+    "gvpv_on": false,
+    "elapsed_s": 1206.6,
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 95.97
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 138.81
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 100.01
+      },
+      {
+        "run": 5,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 6,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 7,
+        "success": false,
+        "mttr_s": 0.0
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 130.05
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 98.38
+      },
+      {
+        "run": 10,
+        "success": false,
+        "mttr_s": 0.0
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "disabled_hits": 14,
+    "log": "exp_wiki_gvpv_fixed_S2_gvpv_off_20260801_153426.log"
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "app": "wikipedia",
+    "scenario": "S1",
+    "model": "qwen2.5-coder-7b-instruct",
+    "model_key": "qwen",
+    "rc": 1,
+    "elapsed_s": 432.4,
+    "log": "exp1_wiki_S1_qwen_20260731_111535.log"
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S1",
+    "model": "meta-llama-3.1-8b-instruct",
+    "model_key": "llama",
+    "rc": 0,
+    "elapsed_s": 847.2,
+    "log": "exp1_wiki_S1_llama_20260731_112247.log",
+    "scenario_id": "S1",
+    "mttr_mean": 75.2,
+    "mttr_std": 0.0,
+    "speedup": "4.0x",
+    "sr": "1/5"
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S2",
+    "model": "qwen2.5-coder-7b-instruct",
+    "model_key": "qwen",
+    "rc": 0,
+    "elapsed_s": 388.4,
+    "log": "exp1_wiki_S2_qwen_20260731_113655.log",
+    "scenario_id": "S2",
+    "mttr_mean": 74.1,
+    "mttr_std": 3.0,
+    "speedup": "3.2x",
+    "sr": "4/5"
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S2",
+    "model": "meta-llama-3.1-8b-instruct",
+    "model_key": "llama",
+    "rc": 0,
+    "elapsed_s": 493.8,
+    "log": "exp1_wiki_S2_llama_20260731_114323.log",
+    "scenario_id": "S2",
+    "mttr_mean": 77.7,
+    "mttr_std": 6.3,
+    "speedup": "3.1x",
+    "sr": "3/5"
+  }
+]

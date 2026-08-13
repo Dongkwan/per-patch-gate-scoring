@@ -1,0 +1,163 @@
+[
+  {
+    "arm": "full_lara",
+    "elapsed_s": 829.0,
+    "log": "exp_dynapp_full_lara_20260801_044839.log",
+    "per_scenario": {
+      "SD1": {
+        "succ": 5,
+        "n": 5,
+        "mttr_mean": 37.7,
+        "mttr_std": 1.9
+      },
+      "SD2": {
+        "succ": 3,
+        "n": 5,
+        "mttr_mean": 109.4,
+        "mttr_std": 40.1
+      }
+    },
+    "raw_runs": [
+      [
+        "1",
+        "SUCCESS"
+      ],
+      [
+        "2",
+        "SUCCESS"
+      ],
+      [
+        "3",
+        "SUCCESS"
+      ],
+      [
+        "4",
+        "SUCCESS"
+      ],
+      [
+        "5",
+        "SUCCESS"
+      ],
+      [
+        "1",
+        "SUCCESS"
+      ],
+      [
+        "2",
+        "FAILED"
+      ],
+      [
+        "3",
+        "SUCCESS"
+      ],
+      [
+        "4",
+        "SUCCESS"
+      ],
+      [
+        "5",
+        "FAILED"
+      ]
+    ]
+  },
+  {
+    "arm": "patch_only",
+    "log": "exp_dynapp_patch_only_20260801_050228.log",
+    "per_scenario": {
+      "SD1": {
+        "succ": 5,
+        "n": 5,
+        "mttrs": [
+          24.3,
+          21.3,
+          25.9,
+          23.9,
+          30.2
+        ]
+      },
+      "SD2": {
+        "succ": 5,
+        "n": 5,
+        "mttrs": [
+          52.7,
+          36.5,
+          38.9,
+          36.8,
+          37.0
+        ]
+      }
+    },
+    "runs": [
+      {
+        "success": true,
+        "mttr_s": 24.3,
+        "note": "patched",
+        "sid": "SD1",
+        "run": 1
+      },
+      {
+        "success": true,
+        "mttr_s": 21.3,
+        "note": "patched",
+        "sid": "SD1",
+        "run": 2
+      },
+      {
+        "success": true,
+        "mttr_s": 25.9,
+        "note": "patched",
+        "sid": "SD1",
+        "run": 3
+      },
+      {
+        "success": true,
+        "mttr_s": 23.9,
+        "note": "patched",
+        "sid": "SD1",
+        "run": 4
+      },
+      {
+        "success": true,
+        "mttr_s": 30.2,
+        "note": "patched",
+        "sid": "SD1",
+        "run": 5
+      },
+      {
+        "success": true,
+        "mttr_s": 52.7,
+        "note": "patched",
+        "sid": "SD2",
+        "run": 1
+      },
+      {
+        "success": true,
+        "mttr_s": 36.5,
+        "note": "patched",
+        "sid": "SD2",
+        "run": 2
+      },
+      {
+        "success": true,
+        "mttr_s": 38.9,
+        "note": "patched",
+        "sid": "SD2",
+        "run": 3
+      },
+      {
+        "success": true,
+        "mttr_s": 36.8,
+        "note": "patched",
+        "sid": "SD2",
+        "run": 4
+      },
+      {
+        "success": true,
+        "mttr_s": 37.0,
+        "note": "patched",
+        "sid": "SD2",
+        "run": 5
+      }
+    ]
+  }
+]

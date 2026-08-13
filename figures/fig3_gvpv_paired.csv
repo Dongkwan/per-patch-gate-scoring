@@ -1,0 +1,21 @@
+substudy,app,scenario,backbone,arm,n,successes,in_paired_contrast,exclusion_reason
+paired_n5,ankidroid,S1,qwen,on,5,5,yes,
+paired_n5,ankidroid,S1,qwen,off,5,4,yes,
+paired_n5,newpipe,S1,qwen,on,5,0,yes,
+paired_n5,newpipe,S1,qwen,off,5,0,yes,
+extended_n10,ankidroid,S1,qwen,on,10,9,yes,
+extended_n10,ankidroid,S1,qwen,off,10,9,yes,
+extended_n10,ankidroid,S2,qwen,on,10,9,yes,
+extended_n10,ankidroid,S2,qwen,off,10,8,yes,
+extended_n10,newpipe,S1,qwen,on,10,2,yes,
+extended_n10,newpipe,S1,qwen,off,10,2,yes,
+extended_n10,newpipe,S2,qwen,on,10,10,yes,
+extended_n10,newpipe,S2,qwen,off,10,10,yes,
+extended_n10,wikipedia,S1,qwen,on,10,8,no,off-arm toggle ineffective
+extended_n10,wikipedia,S1,qwen,off,10,10,no,off-arm toggle ineffective
+extended_n10,wikipedia,S2,qwen,on,10,5,no,off-arm toggle ineffective
+extended_n10,wikipedia,S2,qwen,off,10,6,no,off-arm toggle ineffective
+wiki_rerun_n10,wikipedia,S1,qwen,on,10,10,no,off-arm toggle ineffective; seeded fault absent in on arm
+wiki_rerun_n10,wikipedia,S1,qwen,off,10,6,no,off-arm toggle ineffective; seeded fault absent in on arm
+wiki_rerun_n10,wikipedia,S2,qwen,on,10,7,yes,
+wiki_rerun_n10,wikipedia,S2,qwen,off,10,5,yes,

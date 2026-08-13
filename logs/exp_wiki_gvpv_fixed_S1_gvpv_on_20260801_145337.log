@@ -1,0 +1,671 @@
+[Config] LLM     : http://localhost:1234/v1  model=qwen2.5-coder-7b-instruct
+[Config] App     : org.wikipedia.alpha
+[Config] N_RUNS  : 10
+[Config] Scenarios: ['S1']
+
+======================================================================
+  SCENARIO S1: Wrong Resource-ID  (n=10)
+  Bug Type : resource-id mismatch (NoSuchElement)
+  Source   : <WORKSPACE>\app\wikipedia\scenarios\s1_wrong_resource_id.py
+======================================================================
+
+  ────────────────────────────────────────────────────────
+  Run 1/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=95b70c62
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 22.77s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=7342d6af
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 25.51s  (total: 25.5s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=e9a55e58
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=94e53985
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 1 → SUCCESS | MTTR=25.51s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 2/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=4cc12746
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 19.12s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=ccf4e13d
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 21.2s  (total: 21.2s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=1af807cd
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=bfdfcca7
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 2 → SUCCESS | MTTR=21.2s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 3/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=c28338fd
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 21.06s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=9a043e02
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 23.17s  (total: 23.2s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=e1b0cb52
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=70cd76a5
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 3 → SUCCESS | MTTR=23.17s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 4/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=238fa892
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 20.32s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=5adf5ca2
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 22.41s  (total: 22.4s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=44cc1c79
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=29e936c0
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 4 → SUCCESS | MTTR=22.41s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 5/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=bf98da87
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 30.23s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=fc09eeb4
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 32.22s  (total: 32.2s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=41d8fc4d
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=1799e2d1
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 5 → SUCCESS | MTTR=32.22s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 6/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=01432d72
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 34.10s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=0c95eb49
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 36.19s  (total: 36.2s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=11ccdd87
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=b38122cf
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 6 → SUCCESS | MTTR=36.19s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 7/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=180d648d
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 24.65s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=be3d192e
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 26.8s  (total: 26.8s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=752f59e6
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=158ea5e6
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 7 → SUCCESS | MTTR=26.8s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 8/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=5844489f
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 20.33s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=c8c461c3
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 22.39s  (total: 22.4s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=bda32d8a
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=f519540e
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 8 → SUCCESS | MTTR=22.39s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 9/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=6d7aa84a
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 19.62s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=4c46a7f7
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 21.61s  (total: 21.6s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=fd8039a4
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=fc3722a5
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 9 → SUCCESS | MTTR=21.61s | steps=1
+
+  ────────────────────────────────────────────────────────
+  Run 10/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=39c6110a
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_learn_more_text PASSED               [100%]
+
+============================= 1 passed in 20.66s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=c4b64c96
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (already passing (no repair needed))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 0
+  Steps   : 1  (OpenClaw + RepairAgent)
+  MTTR    : 22.59s  (total: 22.6s)
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=0e9cb925
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=c7d318f6
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 10 → SUCCESS | MTTR=22.59s | steps=1
+
+##############################################################################
+  ANDROID EXPERIMENT RESULTS — Wikipedia  (n=10)  model=qwen2.5-coder-7b-instruct
+##############################################################################
+Scen  Bug Type                              MTTR mean±std  Manual  Speedup    SR
+──────────────────────────────────────────────────────────────────────────────
+S1    resource-id mismatch (NoSuchElement)        25.4±5.0s    300s    11.8x 10/10
+──────────────────────────────────────────────────────────────────────────────
+
+  Raw MTTR: [[25.51, 21.2, 23.17, 22.41, 32.22, 36.19, 26.8, 22.39, 21.61, 22.59]]
+  Raw Steps: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]

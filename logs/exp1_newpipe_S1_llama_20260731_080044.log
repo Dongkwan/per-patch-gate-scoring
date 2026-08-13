@@ -1,0 +1,991 @@
+[Config] LLM    : http://localhost:1234/v1  model=meta-llama-3.1-8b-instruct
+[Config] App    : org.schabi.newpipe
+[Config] N_RUNS : 5
+[Config] Scenarios: ['S1']
+
+======================================================================
+  SCENARIO S1: Wrong Resource-ID  (n=5)
+  Bug Type : resource-id mismatch (NoSuchElement)
+======================================================================
+
+  ────────────────────────────────────────────────────────
+  Run 1/5  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\newpipe\test_experiment.py
+  App URL   : org.schabi.newpipe
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=d83e66e9
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_search_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_search_button_resource_id",
+      "type": "element_not_found",
+      "expected": "org.schabi.newpipe:id/search_button",
+      "actual": "(element not foun
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Now that I have the result of run_pytest, I need to collect the live Android UI hierarchy using the app package name 'org.schabi.newpipe'.
+  Tool    : collect_ui_hierarchy
+  Args    : org.schabi.newpipe
+  Obs     : {
+  "app": "org.schabi.newpipe",
+  "buttons": [
+    {
+      "resource_id": "button2",
+      "full_id": "android:id/button2",
+      "text": "NO",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "button1",
+      "full_id": "android:id/button1",
+      "text": "YES",
+
+
+  ── Step 3 / 4 ──────────────────
+  Thought : Now that I have the live Android UI hierarchy, I need to build a SymptomReport JSON with the required keys.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=e0e37f77
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+  [A2A Handoff]
+    tasks/send  task=fba49b05  status=working
+    artifact: SymptomReport #54770c1f  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=9bd68870
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\newpipe\test_experiment.py' are failing. Here is the diagnostic ...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : Analyze the SymptomReport JSON to understand what resource-ids or text values need correction.
+  Tool    : analyze_report
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "symptoms": {
+    "failed_assertions": [
+      {
+        "test_name": "test_search_button_resource
+  Obs     : 1. test_search_button_resource_id
+2. org.schabi.newpipe:id/search_button
+3. org.schabi.newpipe:id/action_search
+
+BROKEN_VALUE: org.schabi.newpipe:id/search_button
+CORRECT_VALUE: org.schabi.newpipe:id/action_search
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Read the test file to understand its content and identify where the correction needs to be applied.
+  Tool    : read_file
+  Args    : "<WORKSPACE>\\app\\newpipe\\test_experiment.py"
+  Obs     : """
+NewPipe Scenario S1 — Wrong Resource-ID
+========================================
+App      : NewPipe (org.schabi.newpipe)
+Bug Type : 검색 버튼 resource-id 불일치
+
+실제 resource-id: org.schabi.newpipe:id/action_search
+BUG: org.schabi.newpipe:id/search_button 으로 잘못 가정 → NoSuchElementException
+FIX: search_bu
+
+  ── Step 3 / 7 ──────────────────
+  Thought : Apply a patch to fix the test file by replacing the incorrect resource-id with the correct one.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "repair_plan": "1. FIX: search_button → action_search",
+  "broken_value": "org.schabi.newpipe:id/s
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\newpipe\test_experiment.py (766 chars written)
+
+  ── Step 4 / 7 ──────────────────
+  Thought : Run the tests to verify that the patch fixes the failures.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\newpipe\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 23.51s ==============================
+
+
+  ── Step 5 / 7 ──────────────────
+  Thought : The patch has been successfully applied and the tests have passed, indicating that the issue is resolved.
+  Tool    : finish
+  Args    : {"result": "success", "message": "Patch applied and tests passed"}
+
+◀ ◀ ◀ [RepairAgent] 완료  (5steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=4f96f7bd
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=4  error=''
+    A2A Task #fba49b05 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=73d58d57
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 21.85s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I can immediately call finish with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=3ca0acf3
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 7  (OpenClaw + RepairAgent)
+  MTTR    : 97.56s  (total: 97.6s)
+  A2A tasks dispatched: 1
+    cycle=1  task=fba49b05  report=54770c1f
+
+  To re-run: copy '<WORKSPACE>\app\newpipe\test_experiment.py.bak' back to '<WORKSPACE>\app\newpipe\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=e59edf42
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=b2e8efc9
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 1 → SUCCESS | MTTR=97.56s | steps=7
+
+  ────────────────────────────────────────────────────────
+  Run 2/5  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\newpipe\test_experiment.py
+  App URL   : org.schabi.newpipe
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=30705b61
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_search_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_search_button_resource_id",
+      "type": "element_not_found",
+      "expected": "org.schabi.newpipe:id/search_button",
+      "actual": "(element not foun
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Now that I have the result of run_pytest, I need to collect the live Android UI hierarchy for the application 'org.schabi.newpipe' to see what the actual UI looks like.
+  Tool    : collect_ui_hierarchy
+  Args    : org.schabi.newpipe
+  Obs     : {
+  "app": "org.schabi.newpipe",
+  "buttons": [
+    {
+      "resource_id": "button2",
+      "full_id": "android:id/button2",
+      "text": "NO",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "button1",
+      "full_id": "android:id/button1",
+      "text": "YES",
+
+
+  ── Step 3 / 4 ──────────────────
+  Thought : Now that I have the live Android UI hierarchy, I need to build a SymptomReport JSON with the test file path, app package name, collected UI facts, failed assertions from run_pytest, and raw error output.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=309a1b52
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+  [A2A Handoff]
+    tasks/send  task=c7e9fe95  status=working
+    artifact: SymptomReport #b7f3e2c0  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=996caa02
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\newpipe\test_experiment.py' are failing. Here is the diagnostic ...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : Analyze the SymptomReport JSON to understand what resource-ids or text values need correction.
+  Tool    : analyze_report
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+  Obs     : 1. test_search_button_resource_id
+2. org.schabi.newpipe:id/search_button
+3. org.schabi.newpipe:id/action_search
+
+
+BROKEN_VALUE: org.schabi.newpipe:id/search_button
+CORRECT_VALUE: org.schabi.newpipe:id/action_search
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Apply a patch to fix the test file using the repair plan and correct values.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "repair_plan": "1. Replace 'org.schabi.newpipe:id/search_button' with 'org.schabi.newpipe:id/actio
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\newpipe\test_experiment.py (766 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : Run the tests to verify that the patch fixes all failures.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\newpipe\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.34s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The patch has been successfully applied and the tests are passing.
+  Tool    : finish
+  Args    : "Patch applied successfully, all tests pass"
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=fb829d0f
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #c7e9fe95 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=92f068f6
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.48s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I can immediately call finish with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=71383530
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 98.8s  (total: 98.8s)
+  A2A tasks dispatched: 1
+    cycle=1  task=c7e9fe95  report=b7f3e2c0
+
+  To re-run: copy '<WORKSPACE>\app\newpipe\test_experiment.py.bak' back to '<WORKSPACE>\app\newpipe\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=b26f3a8c
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=7f122a60
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 2 → SUCCESS | MTTR=98.8s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 3/5  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\newpipe\test_experiment.py
+  App URL   : org.schabi.newpipe
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=51a4d56a
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_search_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_search_button_resource_id",
+      "type": "element_not_found",
+      "expected": "org.schabi.newpipe:id/search_button",
+      "actual": "(element not foun
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Now that I have the result of run_pytest, I need to collect the live Android UI hierarchy for the application 'org.schabi.newpipe' to see what's actually on the screen.
+  Tool    : collect_ui_hierarchy
+  Args    : org.schabi.newpipe
+  Obs     : {
+  "app": "org.schabi.newpipe",
+  "buttons": [
+    {
+      "resource_id": "button2",
+      "full_id": "android:id/button2",
+      "text": "NO",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "button1",
+      "full_id": "android:id/button1",
+      "text": "YES",
+
+
+  ── Step 3 / 4 ──────────────────
+  Thought : Now that I have the live Android UI hierarchy, I need to build a SymptomReport JSON with the test file path, app package name, collected UI facts, failed assertions from run_pytest, and raw error output.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=46f5c140
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+  [A2A Handoff]
+    tasks/send  task=b27a9c4d  status=working
+    artifact: SymptomReport #6de51656  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=22fb6f87
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\newpipe\test_experiment.py' are failing. Here is the diagnostic ...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : Analyze the SymptomReport JSON to understand what resource-ids or text values need correction.
+  Tool    : analyze_report
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+  Obs     : 1. test_search_button_resource_id
+2. org.schabi.newpipe:id/search_button
+3. org.schabi.newpipe:id/action_search
+
+BROKEN_VALUE: org.schabi.newpipe:id/search_button
+CORRECT_VALUE: org.schabi.newpipe:id/action_search
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Apply a patch to fix the test file using the repair plan.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "repair_plan": "1. Replace org.schabi.newpipe:id/search_button with org.schabi.newpipe:id/action_s
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\newpipe\test_experiment.py (766 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : Verify the fix by running the tests.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\newpipe\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.15s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The fix was successful, and all tests pass.
+  Tool    : finish
+  Args    : {"result": "success", "message": "All tests pass after applying the patch."}
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=6fd17250
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #b27a9c4d → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=017d01ab
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.41s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I don't need to proceed with collecting the live UI hierarchy or submitting a SymptomReport JSON.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=0ae7f34f
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 100.84s  (total: 100.8s)
+  A2A tasks dispatched: 1
+    cycle=1  task=b27a9c4d  report=6de51656
+
+  To re-run: copy '<WORKSPACE>\app\newpipe\test_experiment.py.bak' back to '<WORKSPACE>\app\newpipe\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=921c177d
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=d80c30db
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 3 → SUCCESS | MTTR=100.84s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 4/5  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\newpipe\test_experiment.py
+  App URL   : org.schabi.newpipe
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=545993c3
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_search_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_search_button_resource_id",
+      "type": "element_not_found",
+      "expected": "org.schabi.newpipe:id/search_button",
+      "actual": "(element not foun
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Now that I have the result of run_pytest, I need to collect the live Android UI hierarchy for the application 'org.schabi.newpipe' to see what the actual UI looks like.
+  Tool    : collect_ui_hierarchy
+  Args    : org.schabi.newpipe
+  Obs     : {
+  "app": "org.schabi.newpipe",
+  "buttons": [
+    {
+      "resource_id": "button2",
+      "full_id": "android:id/button2",
+      "text": "NO",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "button1",
+      "full_id": "android:id/button1",
+      "text": "YES",
+
+
+  ── Step 3 / 4 ──────────────────
+  Thought : Now that I have the live Android UI hierarchy, I need to build a SymptomReport JSON with the test file path, app package name, collected UI facts, failed assertions from run_pytest, and raw error output.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=6c64b19e
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+  [A2A Handoff]
+    tasks/send  task=6a8450fe  status=working
+    artifact: SymptomReport #844d1690  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=f2d9ce5c
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\newpipe\test_experiment.py' are failing. Here is the diagnostic ...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : Analyze the SymptomReport JSON to understand what resource-ids or text values need correction.
+  Tool    : analyze_report
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+  Obs     : 1. test_search_button_resource_id
+2. org.schabi.newpipe:id/search_button
+3. org.schabi.newpipe:id/action_search
+
+BROKEN_VALUE: org.schabi.newpipe:id/search_button
+CORRECT_VALUE: org.schabi.newpipe:id/action_search
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Apply a patch to the test file using the repair plan and correct resource-id.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "repair_plan": "1. Replace 'org.schabi.newpipe:id/search_button' with 'org.schabi.newpipe:id/actio
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\newpipe\test_experiment.py (766 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : Verify the patch by running the tests.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\newpipe\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.03s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The test has passed with the corrected resource-id, so we can mark the repair as complete.
+  Tool    : finish
+  Args    : "Repair successful: all tests passed after applying patch."
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=e25ddbe9
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #6a8450fe → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=bbfc1015
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.07s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I don't need to proceed with collecting the live UI hierarchy or submitting a SymptomReport JSON.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=58ad6d92
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 100.4s  (total: 100.4s)
+  A2A tasks dispatched: 1
+    cycle=1  task=6a8450fe  report=844d1690
+
+  To re-run: copy '<WORKSPACE>\app\newpipe\test_experiment.py.bak' back to '<WORKSPACE>\app\newpipe\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=17fe9869
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=58b49b25
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 4 → SUCCESS | MTTR=100.4s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 5/5  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\newpipe\test_experiment.py
+  App URL   : org.schabi.newpipe
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=f2b56ca5
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_search_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_search_button_resource_id",
+      "type": "element_not_found",
+      "expected": "org.schabi.newpipe:id/search_button",
+      "actual": "(element not foun
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Now that I have the result of run_pytest, I need to collect the live Android UI hierarchy for the application 'org.schabi.newpipe' to see what the actual UI looks like.
+  Tool    : collect_ui_hierarchy
+  Args    : org.schabi.newpipe
+  Obs     : {
+  "app": "org.schabi.newpipe",
+  "buttons": [
+    {
+      "resource_id": "button2",
+      "full_id": "android:id/button2",
+      "text": "NO",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "button1",
+      "full_id": "android:id/button1",
+      "text": "YES",
+
+
+  ── Step 3 / 4 ──────────────────
+  Thought : Now that I have the live Android UI hierarchy, I need to build a SymptomReport JSON with the test file path, app package name, UI facts, failed assertions from run_pytest, and raw error output.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=45ea93b5
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+
+  [A2A Handoff]
+    tasks/send  task=3708c4c9  status=working
+    artifact: SymptomReport #7015366d  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=25557d97
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\newpipe\test_experiment.py' are failing. Here is the diagnostic ...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : Analyze the SymptomReport JSON to understand what resource-ids or text values need correction.
+  Tool    : analyze_report
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "app_package": "org.schabi.newpipe",
+  "ui_facts": {
+    "app": "org.schabi.newpipe",
+    "buttons
+  Obs     : 1. test_search_button_resource_id
+2. org.schabi.newpipe:id/search_button
+3. org.schabi.newpipe:id/action_search
+
+BROKEN_VALUE: org.schabi.newpipe:id/search_button
+CORRECT_VALUE: org.schabi.newpipe:id/action_search
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Apply a patch to fix the test file using the repair plan and values obtained from analyze_report.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\newpipe\\test_experiment.py",
+  "repair_plan": "1. Replace org.schabi.newpipe:id/search_button with org.schabi.newpipe:id/action_s
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\newpipe\test_experiment.py (766 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : Run the patched test file using pytest to verify that the fix passes.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\newpipe\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.44s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The fix has been successfully verified, so it's time to signal the completion of the repair process.
+  Tool    : finish
+  Args    : "Repair complete: test_search_button_resource_id passes after applying patch."
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=60ea25bf
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #3708c4c9 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=c15d1fbb
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\newpipe\test_experiment.py' against the live applicati...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : First, I need to run the pytest on the given test file to see if any tests are failing and why.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\newpipe\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_search_button_resource_id PASSED                [100%]
+
+============================= 1 passed in 22.69s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I can immediately call finish with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=f95bd075
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 98.16s  (total: 98.2s)
+  A2A tasks dispatched: 1
+    cycle=1  task=3708c4c9  report=7015366d
+
+  To re-run: copy '<WORKSPACE>\app\newpipe\test_experiment.py.bak' back to '<WORKSPACE>\app\newpipe\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=82d98ce2
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=cd6798d3
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 5 → SUCCESS | MTTR=98.16s | steps=6
+
+##############################################################################
+  ANDROID EXPERIMENT RESULTS — NewPipe  (n=5)  model=meta-llama-3.1-8b-instruct
+##############################################################################
+Scen  Bug Type                              MTTR mean±std  Manual  Speedup    SR
+──────────────────────────────────────────────────────────────────────────────
+S1    resource-id mismatch (NoSuchElement)        99.2±1.4s    300s     3.0x   5/5
+──────────────────────────────────────────────────────────────────────────────
+
+  Raw MTTR: [[97.56, 98.8, 100.84, 100.4, 98.16]]
+  Raw Steps: [[7, 6, 6, 6, 6]]

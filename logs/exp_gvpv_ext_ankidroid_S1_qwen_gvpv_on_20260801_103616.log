@@ -1,0 +1,1997 @@
+[Config] LLM    : http://localhost:1234/v1  model=qwen2.5-coder-7b-instruct
+[Config] App    : com.ichi2.anki
+[Config] N_RUNS : 10
+[Config] Scenarios: ['S1']
+
+======================================================================
+  SCENARIO S1: Wrong Resource-ID  (n=10)
+  Bug Type : resource-id mismatch (NoSuchElement)
+======================================================================
+
+  ────────────────────────────────────────────────────────
+  Run 1/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=c4150922
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id ERROR            [100%]
+
+=========
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest run indicates that there is an error during the setup of the test `test_get_started_button_resource_id`. The error seems to be related to establishing a connection with Appium using the provided options.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {"error": "uiautomator dump failed"}
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The `collect_ui_hierarchy` call also encountered an error, indicating that the UI hierarchy could not be collected.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {"error": "uiautomator dump failed"},
+  "failed_a
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=0e528c46
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {"error": "uiautomator dump failed"},
+  "failed_a
+
+  [A2A Handoff]
+    tasks/send  task=279c509e  status=working
+    artifact: SymptomReport #d2d4403f  (0 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=286cca05
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the `uiautomator dump failed`, which is causing the tests to fail. This error suggests an issue with the device or emulator connection rather than a problem in the test file itself. However, I will still analyze the t
+  Tool    : read_file
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : """
+AnkiDroid Scenario S1 — Wrong Resource-ID
+==========================================
+App      : AnkiDroid (com.ichi2.anki)
+Bug Type : 시작 버튼 resource-id 불일치
+
+실제 resource-id: com.ichi2.anki:id/get_started
+BUG: com.ichi2.anki:id/start_button 으로 잘못 가정 → NoSuchElementException
+FIX: start_button → get
+
+  ── Step 2 / 7 ──────────────────
+  Thought : The test file contains a bug where the expected resource-id for the 'Get Started' button is incorrectly set to "start_button" instead of the actual resource-id "com.ichi2.anki:id/get_started". This discrepancy is causing the `NoSuchElementException` 
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "repair_plan": "1. Change 'start_button' to 'get_started' in the resource-id assertion.",
+  "bro
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (733 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests again to verify that the fix has resolved the issue.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 19.27s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the issue with the incorrect resource-id has been resolved.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=99dcc203
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #279c509e → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=06a42f40
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 17.40s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=249a07ff
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 111.84s  (total: 111.8s)
+  A2A tasks dispatched: 1
+    cycle=1  task=279c509e  report=d2d4403f
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=9c5843e6
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=1d8443ea
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 1 → SUCCESS | MTTR=111.84s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 2/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=6dc604ec
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'com.ichi2.anki:id/start_button' was not found.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The UI hierarchy has been collected, showing that the 'Get Started' button exists with resource-id 'com.ichi2.anki:id/get_started'. This suggests that the test is failing because it is looking for a different resource-id ('start_button') than what is
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=9645c850
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=04580b06  status=working
+    artifact: SymptomReport #377b38ad  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=52c0ece8
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/start_button`, but the actual element found has the resource-id `com.ichi2.anki:id/get_st
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {}, "failed_assertions": [{"test_name": "test_get_starte
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/get_started'", "r
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 17.59s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=e18bd89d
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #04580b06 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=9a65fae6
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 17.14s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=7e9f942a
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 86.59s  (total: 86.6s)
+  A2A tasks dispatched: 1
+    cycle=1  task=04580b06  report=377b38ad
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=69527122
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=f355345e
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 2 → SUCCESS | MTTR=86.59s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 3/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=f0838cee
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'start_button' was not found. I will now collect the live UI hierarchy of the app to gather more context.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the button with resource-id 'get_started' exists, but it has a different ID ('com.ichi2.anki:id/get_started') compared to what the test expects ('com.ichi2.anki:id/start_button'). This discrepancy is causing the test 
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=0d381f7b
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=cee6fee3  status=working
+    artifact: SymptomReport #c5c60d03  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=41f48438
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/start_button`, but the actual element found has the resource-id `com.ichi2.anki:id/get_st
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {}, "failed_assertions": [{"test_name": "test_get_starte
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/get_started'", "r
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 18.26s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=142ea5dc
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #cee6fee3 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=0bc3a529
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 16.97s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=a842a23a
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 91.0s  (total: 91.0s)
+  A2A tasks dispatched: 1
+    cycle=1  task=cee6fee3  report=c5c60d03
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=2b1bb4a0
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=c6ae0050
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 3 → SUCCESS | MTTR=91.0s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 4/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=20d4312e
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'com.ichi2.anki:id/start_button' was not found. I will now collect the live UI hierarchy of the app to understand the current state of the UI.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the button with resource-id 'com.ichi2.anki:id/start_button' does not exist, which matches the assertion from the failed test. I will now prepare the SymptomReport JSON and call the finish tool.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=69d5e44b
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=3f320aee  status=working
+    artifact: SymptomReport #78e58402  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=1f93d5e7
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `start_button`, but the actual element found has the resource-id `get_started`. This discrepancy needs to be
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_get_sta
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, the issue in the test file is that it expects an element with the resource-id `start_button`, but the actual element found has the resource-id `get_started`. This discrepancy needs to be corrected.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Change the expected resource-id in test_get_started_button_resource_id from 'start
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests again to verify that the issue is resolved.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+```
+Thought: All tests have passed successfully after applying the patch. The issue with `test_get_started_button_reso
+  Obs     : [FAILED]
+============================= test session starts =============================
+collecting ... collected 0 items
+
+============================ no tests ran in 0.00s ============================
+ERROR: file or directory not found: <WORKSPACE>\\app\\ankidroid
+
+  ── Step 4 / 7 ──────────────────
+  Thought : It appears that there was an error in running the tests, as no tests were collected or run. This could be due to a variety of reasons, such as incorrect file path or issues with the test environment.
+  Tool    : finish
+  Args    : failure (no tests ran)
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=de3ccf71
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #3f320aee → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=5c02c07c
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 26.26s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=c45096f0
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 78.57s  (total: 78.6s)
+  A2A tasks dispatched: 1
+    cycle=1  task=3f320aee  report=78e58402
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=6972a950
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=02c993e4
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 4 → SUCCESS | MTTR=78.57s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 5/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=31ba876e
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'start_button' was not found. I will now collect the live UI hierarchy of the app to understand the current state of the UI.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the button with resource-id 'start_button' is not present, which matches the assertion from the failed test. I will now prepare the SymptomReport JSON to submit.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=d37c19cc
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=f2f1e821  status=working
+    artifact: SymptomReport #425677d7  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=96d01106
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/start_button`, but the actual element found has the resource-id `com.ichi2.anki:id/get_st
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {}, "failed_assertions": [{"test_name": "test_get_starte
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/get_started'", "r
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (735 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 15.66s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=29ab4836
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #f2f1e821 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=9fef0cab
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 16.65s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=a0af37e2
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 80.7s  (total: 80.7s)
+  A2A tasks dispatched: 1
+    cycle=1  task=f2f1e821  report=425677d7
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=7a7ea0bd
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=977d7e20
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 5 → SUCCESS | MTTR=80.7s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 6/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=2c23af38
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'com.ichi2.anki:id/start_button' was not found. I will now collect the live UI hierarchy of the app to gather more context.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the button with resource-id 'get_started' exists, but not the one expected in the test ('start_button'). This discrepancy indicates a potential issue with the test or the app's UI elements.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=a391ac79
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=65e821c7  status=working
+    artifact: SymptomReport #f093dbb4  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=e119d411
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/start_button`, but the actual element found has the resource-id `com.ichi2.anki:id/get_st
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {}, "failed_assertions": [{"test_name": "test_get_starte
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/get_started'", "r
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 14.88s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=4b52fdf2
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #65e821c7 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=0f61e35f
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 16.78s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=265b04d2
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 82.51s  (total: 82.5s)
+  A2A tasks dispatched: 1
+    cycle=1  task=65e821c7  report=f093dbb4
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=d1b8f460
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=3b7d34aa
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 6 → SUCCESS | MTTR=82.51s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 7/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=1642cbe5
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'start_button' was not found. I will now collect the live UI hierarchy of the app to gather more context.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the button with resource-id 'get_started' exists, but it has a different ID ('com.ichi2.anki:id/get_started') compared to what the test is expecting ('com.ichi2.anki:id/start_button'). This discrepancy indicates why t
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=350d8121
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=88c1d326  status=working
+    artifact: SymptomReport #8fa90713  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=92af5507
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/start_button`, but the actual element found has the resource-id `com.ichi2.anki:id/get_st
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {}, "failed_assertions": [{"test_name": "test_get_starte
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/get_started'", "r
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 15.44s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=4b542082
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #88c1d326 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=714deaa4
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 17.21s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=1518c68b
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 81.81s  (total: 81.8s)
+  A2A tasks dispatched: 1
+    cycle=1  task=88c1d326  report=8fa90713
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=67d8bec7
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=92bf386f
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 7 → SUCCESS | MTTR=81.81s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 8/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=f8ff4aa2
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'com.ichi2.anki:id/start_button' was not found.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The UI hierarchy has been collected successfully. Now, I will prepare the SymptomReport JSON to submit.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=92c01328
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=650c7b7a  status=working
+    artifact: SymptomReport #6495c506  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=c43f68a9
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/start_button`, but the actual element found has the resource-id `com.ichi2.anki:id/get_st
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {}, "failed_assertions": [{"test_name": "test_get_starte
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/get_started`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/get_started
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/get_started'", "r
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 18.94s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=5d844d27
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #650c7b7a → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=a1ff9349
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 17.72s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=1036ae19
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 87.19s  (total: 87.2s)
+  A2A tasks dispatched: 1
+    cycle=1  task=650c7b7a  report=6495c506
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=ef6b7a16
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=4fddacd7
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 8 → SUCCESS | MTTR=87.19s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 9/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=52482820
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'com.ichi2.anki:id/start_button' was not found. I will now collect the live UI hierarchy of the app to gather more context.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the button with resource-id 'get_started' exists, but not 'start_button'. This confirms the assertion from the failed test. I will now build the SymptomReport JSON and call finish.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=213299e7
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=f28c97a2  status=working
+    artifact: SymptomReport #c731ea3f  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=21fdcf82
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `start_button`, but the actual element found has the resource-id `get_started`. This discrepancy needs to be
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_get_sta
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/getStartedButton`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/getStartedButton
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, the broken value in the test is `com.ichi2.anki:id/start_button` and the correct value should be `com.ichi2.anki:id/getStartedButton`. I will now apply a patch to fix this issue in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/getStartedButton'
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (741 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. To ensure that the fix works as expected, I will run the tests again.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [FAILED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id FAILED           [100%]
+
+================================== FAILURES ===================================
+_________________
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The test still failed with the same error, indicating that the element is not being found even after applying the patch. This suggests that there might be an issue with the resource-id or the way it's being referenced in the test.
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_get_sta
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/getstartedbutton`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/getstartedbutton
+
+  ── Step 5 / 7 ──────────────────
+  Thought : It appears that the resource-id is indeed correct, but there might be a case sensitivity issue or another problem with how the element is being located. I will apply a more comprehensive patch to ensure all instances of `start_button` are replaced co
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with 'com.ichi2.anki:id/getstartedbutton'
+  Obs     : [GVPV-FAIL] Check2: correct value 'com.ichi2.anki:id/getstartedbutton' not found in patched file
+
+  ── Step 6 / 7 ──────────────────
+  Thought : The patch did not correctly replace the resource-id as expected. This could be due to a case sensitivity issue or another problem with how the replacement is being handled.
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_get_sta
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/getStartedButton`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/getStartedButton
+
+  ── Step 7 / 7 ──────────────────
+  Thought : It seems that the issue persists despite multiple attempts to replace the resource-id. This could be due to a more complex problem with how the element is being located or referenced in the test.
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_get_sta
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `com.ichi2.anki:id/getstartedbutton`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: com.ichi2.anki:id/getstartedbutton
+  [Bus] RepairAgent → orchestrator  [result]  id=ba9aac48
+
+  [Orchestrator] RepairAgent 결과:
+    success=False  steps=7  error='max_steps_exceeded'
+    A2A Task #f28c97a2 → FAILED: max_steps_exceeded
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=8a2fa60c
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/getStartedButton",
+      "actual": "(element
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the test `test_get_started_button_resource_id`. The assertion indicates that the element with the resource-id `com.ichi2.anki:id/getStartedButton` was not found during the execution of the test.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The UI hierarchy has been collected successfully, but the resource-id `com.ichi2.anki:id/getStartedButton` is not present in the collected data. This confirms that the test failed because it was unable to find the expected element.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=cbe77f9d
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.failed_assertions 폴백 복원: 1 assertion(s) from run_pytest observation
+
+  [A2A Handoff]
+    tasks/send  task=1cb0239f  status=working
+    artifact: SymptomReport #b64e54e3  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=e7987292
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_get_started_button_resource_id` is failing because it expects an element with the resource-id `com.ichi2.anki:id/getStartedButton`, but the actual resource-id in the UI hierarchy is `com.ichi2.anki:id/g
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {"app": "com.ichi2.anki", "buttons": [{"resource_id": "g
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `"com.ichi2.anki:id/getStartedButton"`
+   - Correct value to use: `"com.ichi2.anki:id/get_started"`
+
+BROKEN_VALUE: "com.ichi2.anki:id/getStartedButton"
+CORRECT_VALUE: "com.ichi2.anki:id/get_started"
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I will apply a patch to correct the resource-id in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Correct the resource-id from 'com.ichi2.anki:id/getStartedButton' to 'com.ichi2.an
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\ankidroid\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 16.27s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=070aec00
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #1cb0239f → COMPLETED
+
+  [Orchestrator] 2사이클 소진 → 원본 복구
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✗ FAILED
+  Cycles  : 0
+  Steps   : 14  (OpenClaw + RepairAgent)
+  MTTR    : 0.0s  (total: 149.6s)
+  A2A tasks dispatched: 2
+    cycle=1  task=f28c97a2  report=c731ea3f
+    cycle=2  task=1cb0239f  report=b64e54e3
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=3216b824
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=0a83f30f
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 9 → FAILED | MTTR=0.0s | steps=14
+
+  ────────────────────────────────────────────────────────
+  Run 10/10  (S1: Wrong Resource-ID)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\ankidroid\test_experiment.py
+  App URL   : com.ichi2.anki
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=2827c589
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_get_started_button_resource_id"
+  ],
+  "assertions": [
+    {
+      "test_name": "test_get_started_button_resource_id",
+      "type": "element_not_found",
+      "expected": "com.ichi2.anki:id/start_button",
+      "actual": "(element not
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has failed with one assertion indicating that the element with resource-id 'com.ichi2.anki:id/start_button' was not found.
+  Tool    : collect_ui_hierarchy
+  Args    : com.ichi2.anki
+  Obs     : {
+  "app": "com.ichi2.anki",
+  "buttons": [
+    {
+      "resource_id": "get_started",
+      "full_id": "com.ichi2.anki:id/get_started",
+      "text": "Get Started",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "sync_profile",
+      "full_id": "com.ichi2.anki:id
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The UI hierarchy has been collected, showing that the 'Get Started' button exists with resource-id 'get_started'. This suggests that the issue might be in the test script itself rather than the app.
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=50501e87
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py",
+  "app_package": "com.ichi2.anki",
+  "ui_facts": {
+    "app": "com.ichi2.anki",
+    "buttons": [
+ 
+    [Fix] SymptomReport.assertions actual 유추: 'com.ichi2.anki:id/start_button' → 'com.ichi2.anki:id/get_started' (ui_facts.buttons 스캔)
+
+  [A2A Handoff]
+    tasks/send  task=285cbcb7  status=working
+    artifact: SymptomReport #ccab4c8a  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=c0b56865
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\ankidroid\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The failure in `test_get_started_button_resource_id` indicates that the expected resource-id `com.ichi2.anki:id/start_button` is not found, but the actual resource-id is `com.ichi2.anki:id/get_started`. This discrepancy needs to be corrected in the t
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "app_package": "com.ichi2.anki", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_get_sta
+  Obs     : 1. `test_get_started_button_resource_id`
+   - Wrong value in the test: `com.ichi2.anki:id/start_button`
+   - Correct value to use: `(element not found — wrong resource-id or selector)`
+
+BROKEN_VALUE: com.ichi2.anki:id/start_button
+CORRECT_VALUE: (element not found — wrong resource-id or selector)
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, the broken value `com.ichi2.anki:id/start_button` needs to be replaced with the correct value `(element not found — wrong resource-id or selector)` in the test file.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace 'com.ichi2.anki:id/start_button' with '(element not found — wrong resource
+  Obs     : [GVPV-FAIL] SyntaxError: patched file is not valid Python
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch application resulted in a syntax error, indicating that the replacement might have caused issues with the test file's syntax.
+  Tool    : read_file
+  Args    : "<WORKSPACE>\\app\\ankidroid\\test_experiment.py"
+  Obs     : The plan's literal replacement string is an error placeholder, not a selector; applying it verbatim would leave the test permanently broken. I used the actual resource-id given in the context (`com.ichi2.anki:id/get_started`), which is the plan's evident intent.
+
+"""
+AnkiDroid Scenario S1 — Wrong Re
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The issue is that the literal replacement string `(element not found — wrong resource-id or selector)` caused a syntax error in the test file. We need to replace it with the actual resource-id `com.ichi2.anki:id/get_started`.
+  Tool    : apply_patch
+  Args    : {"test_file": "<WORKSPACE>\\app\\ankidroid\\test_experiment.py", "repair_plan": "1. Replace '(element not found — wrong resource-id or selector)' with 'com.ichi2.anki
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\ankidroid\test_experiment.py (736 chars written)
+
+  ── Step 5 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\ankidroid\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 16.35s ==============================
+
+
+  ── Step 6 / 7 ──────────────────
+  Thought : The test has passed successfully after applying the patch.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (6steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=822ebab1
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=5  error=''
+    A2A Task #285cbcb7 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=2eeed8b8
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\ankidroid\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\ankidroid\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_get_started_button_resource_id PASSED           [100%]
+
+============================= 1 passed in 16.67s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=2bddf577
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 8  (OpenClaw + RepairAgent)
+  MTTR    : 114.42s  (total: 114.4s)
+  A2A tasks dispatched: 1
+    cycle=1  task=285cbcb7  report=ccab4c8a
+
+  To re-run: copy '<WORKSPACE>\app\ankidroid\test_experiment.py.bak' back to '<WORKSPACE>\app\ankidroid\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=087acc18
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=765c64b0
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 10 → SUCCESS | MTTR=114.42s | steps=8
+
+##############################################################################
+  ANDROID EXPERIMENT RESULTS — AnkiDroid  (n=10)  model=qwen2.5-coder-7b-instruct
+##############################################################################
+Scen  Bug Type                              MTTR mean±std  Manual  Speedup    SR
+──────────────────────────────────────────────────────────────────────────────
+S1    resource-id mismatch (NoSuchElement)       90.5±13.4s    300s     3.3x  9/10
+──────────────────────────────────────────────────────────────────────────────
+
+  Raw MTTR: [[111.84, 86.59, 91.0, 78.57, 80.7, 82.51, 81.81, 87.19, 0.0, 114.42]]
+  Raw Steps: [[6, 6, 6, 6, 6, 6, 6, 6, 14, 8]]

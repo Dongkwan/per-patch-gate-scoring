@@ -1,0 +1,324 @@
+{
+  "per_substudy": {
+    "Android replication (n=5)": {
+      "runs": 60,
+      "admitted": 67,
+      "rejected": 11,
+      "fa": 20,
+      "fa_rate": 29.9
+    },
+    "Paired ablation (n=5)": {
+      "runs": 10,
+      "admitted": 8,
+      "rejected": 1,
+      "fa": 4,
+      "fa_rate": 50.0
+    },
+    "Extended paired (n=10)": {
+      "runs": 80,
+      "admitted": 54,
+      "rejected": 27,
+      "fa": 10,
+      "fa_rate": 18.5
+    },
+    "Wikipedia re-run (n=10)": {
+      "runs": 30,
+      "admitted": 14,
+      "rejected": 6,
+      "fa": 7,
+      "fa_rate": 50.0
+    }
+  },
+  "totals": {
+    "runs": 180,
+    "admitted": 143,
+    "rejected": 45,
+    "fa": 41,
+    "adjudicated": 188,
+    "rejection_rate": 23.9,
+    "fa_rate": 28.7
+  },
+  "rejections_by_check": {
+    "Check 0": 9,
+    "Check 1": 3,
+    "Check 2": 33
+  },
+  "fa_by_subject": {
+    "ankidroid": 6,
+    "newpipe": 9,
+    "wikipedia": 26
+  },
+  "stratified_by_subject": {
+    "ankidroid": {
+      "admitted": 47,
+      "fa": 6,
+      "fa_rate": 12.8
+    },
+    "newpipe": {
+      "admitted": 36,
+      "fa": 9,
+      "fa_rate": 25.0
+    },
+    "wikipedia": {
+      "admitted": 60,
+      "fa": 26,
+      "fa_rate": 43.3
+    }
+  },
+  "unreached_gate": 294,
+  "n_decisions": 188,
+  "fa_taxonomy_auto": {
+    "A1": 14,
+    "A2": 4,
+    "A3": 1,
+    "B": 22
+  },
+  "fa_events": [
+    {
+      "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+      "subject": "ankidroid",
+      "enforced_oracle": "com.ichi2.anki:id/getStartedButton",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+      "subject": "newpipe",
+      "enforced_oracle": "(element not found \u2014 wrong resource-id or selec",
+      "auto_class": "A2"
+    },
+    {
+      "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+      "subject": "newpipe",
+      "enforced_oracle": "com.example.newpipe:id/search_bu",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+      "subject": "newpipe",
+      "enforced_oracle": "(element not found \u2014 wrong resource-id or selec",
+      "auto_class": "A2"
+    },
+    {
+      "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+      "subject": "newpipe",
+      "enforced_oracle": "com.example.newpipe:id/search_bu",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:id/onboa",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:id/onboa",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:id/onboa",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:id/onboa",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "new UiSelector().re",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp1_wiki_S1_llama_20260731_112247.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "org.wikipedia.alpha:id/onboa",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+      "subject": "ankidroid",
+      "enforced_oracle": "com.ichi2.anki:id/get_started",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+      "subject": "ankidroid",
+      "enforced_oracle": "com.ichi2.anki:id/getStartedButton",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+      "subject": "ankidroid",
+      "enforced_oracle": "Get Started",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+      "subject": "ankidroid",
+      "enforced_oracle": "Get Started",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+      "subject": "ankidroid",
+      "enforced_oracle": "Get Started",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+      "subject": "newpipe",
+      "enforced_oracle": "2023-04-01T12:00:00+00:00",
+      "auto_class": "A3"
+    },
+    {
+      "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "All the world's knowledge",
+      "auto_class": "B"
+    },
+    {
+      "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+      "subject": "newpipe",
+      "enforced_oracle": "(element not found \u2014 wrong resource-id or selec",
+      "auto_class": "A2"
+    },
+    {
+      "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+      "subject": "newpipe",
+      "enforced_oracle": "com.example.newpipe:id/search_bu",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+      "subject": "newpipe",
+      "enforced_oracle": "(element not found \u2014 wrong resource-id or selec",
+      "auto_class": "A2"
+    },
+    {
+      "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+      "subject": "newpipe",
+      "enforced_oracle": "com.example.newpipe:id/search_bu",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    },
+    {
+      "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+      "subject": "wikipedia",
+      "enforced_oracle": "com.example.app:id/login_username",
+      "auto_class": "A1"
+    }
+  ]
+}

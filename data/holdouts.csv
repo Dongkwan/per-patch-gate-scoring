@@ -1,0 +1,9 @@
+holdout,arm,scenario,n,successes,mttr_mean_s,mttr_std_s
+ambiguous_locator,full_lara,SA1,5,3,76.5,43.1
+ambiguous_locator,full_lara,SA2,5,4,38.4,4.7
+ambiguous_locator,patch_only,SA1,5,5,,
+ambiguous_locator,patch_only,SA2,5,5,,
+dynapp,full_lara,SD1,5,5,37.7,1.9
+dynapp,full_lara,SD2,5,3,109.4,40.1
+dynapp,patch_only,SD1,5,5,,
+dynapp,patch_only,SD2,5,5,,

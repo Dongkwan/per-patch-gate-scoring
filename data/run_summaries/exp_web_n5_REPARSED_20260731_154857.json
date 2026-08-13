@@ -1,0 +1,369 @@
+{
+  "total_succ": 12,
+  "total_n": 60,
+  "overall_sr": 0.2,
+  "wilson_lo": 0.11828505322897494,
+  "wilson_hi": 0.317818058056279,
+  "cells": [
+    {
+      "app": "ghost",
+      "scenario": "S1",
+      "backbone": "qwen",
+      "log": "exp_web_n5_ghost_S1_qwen_20260731_131232.log",
+      "succ": 5,
+      "n": 5,
+      "sr": 1.0,
+      "wilson_lo": 0.5655175352168251,
+      "wilson_hi": 1.0,
+      "mttr_mean": 31.6,
+      "mttr_std": 2.4,
+      "speedup": 9.5,
+      "steps_mean": 6.2,
+      "steps_std": 0.4,
+      "raw_mttr": [
+        33.2,
+        30.0,
+        34.0,
+        28.2,
+        32.4
+      ],
+      "raw_steps": [
+        6,
+        6,
+        7,
+        6,
+        6
+      ]
+    },
+    {
+      "app": "ghost",
+      "scenario": "S1",
+      "backbone": "llama",
+      "log": "exp_web_n5_ghost_S1_llama_20260731_131512.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        24,
+        24,
+        22,
+        24,
+        24
+      ]
+    },
+    {
+      "app": "ghost",
+      "scenario": "S2",
+      "backbone": "qwen",
+      "log": "exp_web_n5_ghost_S2_qwen_20260731_132929.log",
+      "succ": 2,
+      "n": 5,
+      "sr": 0.4,
+      "wilson_lo": 0.11762077423264783,
+      "wilson_hi": 0.769275718723987,
+      "mttr_mean": 79.3,
+      "mttr_std": 70.5,
+      "speedup": 3.0,
+      "steps_mean": 12.5,
+      "steps_std": 7.8,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        129.1,
+        0.0,
+        29.4
+      ],
+      "raw_steps": [
+        26,
+        26,
+        18,
+        27,
+        7
+      ]
+    },
+    {
+      "app": "ghost",
+      "scenario": "S2",
+      "backbone": "llama",
+      "log": "exp_web_n5_ghost_S2_llama_20260731_134017.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        24,
+        24,
+        23,
+        25,
+        24
+      ]
+    },
+    {
+      "app": "opencart",
+      "scenario": "S1",
+      "backbone": "qwen",
+      "log": "exp_web_n5_opencart_S1_qwen_20260731_135411.log",
+      "succ": 2,
+      "n": 5,
+      "sr": 0.4,
+      "wilson_lo": 0.11762077423264783,
+      "wilson_hi": 0.769275718723987,
+      "mttr_mean": 119.3,
+      "mttr_std": 17.2,
+      "speedup": 2.5,
+      "steps_mean": 15.5,
+      "steps_std": 4.9,
+      "raw_mttr": [
+        107.2,
+        0.0,
+        0.0,
+        131.5,
+        0.0
+      ],
+      "raw_steps": [
+        12,
+        27,
+        27,
+        19,
+        27
+      ]
+    },
+    {
+      "app": "opencart",
+      "scenario": "S1",
+      "backbone": "llama",
+      "log": "exp_web_n5_opencart_S1_llama_20260731_140731.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        27,
+        26,
+        27,
+        27,
+        27
+      ]
+    },
+    {
+      "app": "opencart",
+      "scenario": "S2",
+      "backbone": "qwen",
+      "log": "exp_web_n5_opencart_S2_qwen_20260731_142245.log",
+      "succ": 1,
+      "n": 5,
+      "sr": 0.2,
+      "wilson_lo": 0.03622410863243014,
+      "wilson_hi": 0.6244653702374747,
+      "mttr_mean": 33.2,
+      "mttr_std": 0.0,
+      "speedup": 7.2,
+      "steps_mean": 6.0,
+      "steps_std": 0.0,
+      "raw_mttr": [
+        33.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        6,
+        27,
+        27,
+        27,
+        27
+      ]
+    },
+    {
+      "app": "opencart",
+      "scenario": "S2",
+      "backbone": "llama",
+      "log": "exp_web_n5_opencart_S2_llama_20260731_143548.log",
+      "succ": 2,
+      "n": 5,
+      "sr": 0.4,
+      "wilson_lo": 0.11762077423264783,
+      "wilson_hi": 0.769275718723987,
+      "mttr_mean": 84.3,
+      "mttr_std": 57.9,
+      "speedup": 2.8,
+      "steps_mean": 12.0,
+      "steps_std": 5.7,
+      "raw_mttr": [
+        43.4,
+        125.2,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        8,
+        16,
+        24,
+        23,
+        23
+      ]
+    },
+    {
+      "app": "taiga",
+      "scenario": "S1",
+      "backbone": "qwen",
+      "log": "exp_web_n5_taiga_S1_qwen_20260731_144637.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        27,
+        27,
+        27,
+        24,
+        26
+      ]
+    },
+    {
+      "app": "taiga",
+      "scenario": "S1",
+      "backbone": "llama",
+      "log": "exp_web_n5_taiga_S1_llama_20260731_145955.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        28,
+        29,
+        28,
+        26,
+        29
+      ]
+    },
+    {
+      "app": "taiga",
+      "scenario": "S2",
+      "backbone": "qwen",
+      "log": "exp_web_n5_taiga_S2_qwen_20260731_151445.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        27,
+        27,
+        27,
+        27,
+        25
+      ]
+    },
+    {
+      "app": "taiga",
+      "scenario": "S2",
+      "backbone": "llama",
+      "log": "exp_web_n5_taiga_S2_llama_20260731_152927.log",
+      "succ": 0,
+      "n": 5,
+      "sr": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.43448246478317476,
+      "mttr_mean": null,
+      "mttr_std": null,
+      "speedup": null,
+      "steps_mean": null,
+      "steps_std": null,
+      "raw_mttr": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_steps": [
+        26,
+        27,
+        25,
+        27,
+        26
+      ]
+    }
+  ]
+}

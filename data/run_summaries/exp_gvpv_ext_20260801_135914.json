@@ -1,0 +1,878 @@
+[
+  {
+    "app": "ankidroid",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 965.7,
+    "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 111.84,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 86.59,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 91.0,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 78.57,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 80.7,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 82.51,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 81.81,
+        "steps": 6
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 87.19,
+        "steps": 6
+      },
+      {
+        "run": 9,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 114.42,
+        "steps": 8
+      }
+    ],
+    "gvpv_fail_count": 2,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 941.5,
+    "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_off_20260801_105222.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 85.4,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 82.59,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 85.81,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 86.19,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 89.61,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 96.79,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 78.81,
+        "steps": 6
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 80.4,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 85.21,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 12
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S2",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 898.8,
+    "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 62.86,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 81.03,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 68.98,
+        "steps": 10
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 82.4,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 81.61,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 81.79,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 15
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 143.4,
+        "steps": 9
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 84.59,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 85.41,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S2",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 881.8,
+    "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_off_20260801_112302.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 83.03,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 81.21,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 81.23,
+        "steps": 7
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 94.42,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 83.52,
+        "steps": 6
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 80.21,
+        "steps": 6
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 83.78,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 82.62,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 10
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 1304.5,
+    "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 4,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 5,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 125.37,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 158.71,
+        "steps": 8
+      },
+      {
+        "run": 9,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 10,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      }
+    ],
+    "gvpv_fail_count": 6,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 1458.4,
+    "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_off_20260801_115928.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 155.71,
+        "steps": 8
+      },
+      {
+        "run": 4,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 5,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 6,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 7,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 8,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 122.64,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 9
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S2",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 1339.3,
+    "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 131.48,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 127.61,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 126.19,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 123.0,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 129.18,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 125.42,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 125.19,
+        "steps": 6
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 194.02,
+        "steps": 8
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 127.17,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 128.65,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S2",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 1282.0,
+    "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_off_20260801_124606.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 125.42,
+        "steps": 6
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 125.4,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 135.6,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 131.8,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 128.6,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 126.21,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 128.2,
+        "steps": 6
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 127.77,
+        "steps": 6
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 126.63,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 125.4,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 10
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 558.4,
+    "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_on_20260801_130728.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 123.17,
+        "steps": 9
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 20
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 22.89,
+        "steps": 1
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 22.61,
+        "steps": 1
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 21.8,
+        "steps": 1
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 23.6,
+        "steps": 1
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 23.6,
+        "steps": 1
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 22.41,
+        "steps": 1
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 23.39,
+        "steps": 1
+      }
+    ],
+    "gvpv_fail_count": 4,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S1",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 237.8,
+    "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_off_20260801_131646.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": true,
+        "mttr_s": 26.2,
+        "steps": 1
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 24.39,
+        "steps": 1
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 22.21,
+        "steps": 1
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 22.21,
+        "steps": 1
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 23.39,
+        "steps": 1
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 21.29,
+        "steps": 1
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 21.5,
+        "steps": 1
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 30.81,
+        "steps": 1
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 21.8,
+        "steps": 1
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 23.2,
+        "steps": 1
+      }
+    ],
+    "gvpv_fail_count": 0,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S2",
+    "model_key": "qwen",
+    "gvpv_on": true,
+    "rc": 0,
+    "elapsed_s": 1211.6,
+    "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 2,
+        "success": true,
+        "mttr_s": 92.21,
+        "steps": 6
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 108.99,
+        "steps": 8
+      },
+      {
+        "run": 4,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 5,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 6,
+        "success": true,
+        "mttr_s": 98.15,
+        "steps": 6
+      },
+      {
+        "run": 7,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 8,
+        "success": true,
+        "mttr_s": 93.05,
+        "steps": 6
+      },
+      {
+        "run": 9,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 93.62,
+        "steps": 6
+      }
+    ],
+    "gvpv_fail_count": 6,
+    "gvpv_disabled_calls": 0
+  },
+  {
+    "app": "wikipedia",
+    "scenario": "S2",
+    "model_key": "qwen",
+    "gvpv_on": false,
+    "rc": 0,
+    "elapsed_s": 1098.2,
+    "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+    "runs": [
+      {
+        "run": 1,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 14
+      },
+      {
+        "run": 2,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 3,
+        "success": true,
+        "mttr_s": 93.53,
+        "steps": 6
+      },
+      {
+        "run": 4,
+        "success": true,
+        "mttr_s": 91.98,
+        "steps": 6
+      },
+      {
+        "run": 5,
+        "success": true,
+        "mttr_s": 96.4,
+        "steps": 6
+      },
+      {
+        "run": 6,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 7,
+        "success": true,
+        "mttr_s": 109.55,
+        "steps": 8
+      },
+      {
+        "run": 8,
+        "success": false,
+        "mttr_s": 0.0,
+        "steps": 18
+      },
+      {
+        "run": 9,
+        "success": true,
+        "mttr_s": 104.47,
+        "steps": 6
+      },
+      {
+        "run": 10,
+        "success": true,
+        "mttr_s": 119.59,
+        "steps": 8
+      }
+    ],
+    "gvpv_fail_count": 9,
+    "gvpv_disabled_calls": 0
+  }
+]

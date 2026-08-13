@@ -1,0 +1,62 @@
+[
+  {
+    "app": "ankidroid",
+    "scenario": "S1",
+    "model": "qwen2.5-coder-7b-instruct",
+    "model_key": "qwen",
+    "rc": 0,
+    "elapsed_s": 371.7,
+    "ts_start": "20260730_170513",
+    "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+    "scenario_id": "S1",
+    "mttr_mean": 64.4,
+    "mttr_std": 9.1,
+    "speedup": "4.7x",
+    "sr": "4/5"
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S1",
+    "model": "meta-llama-3.1-8b-instruct",
+    "model_key": "llama",
+    "rc": 0,
+    "elapsed_s": 302.2,
+    "ts_start": "20260730_171125",
+    "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+    "scenario_id": "S1",
+    "mttr_mean": 60.2,
+    "mttr_std": 5.5,
+    "speedup": "5.0x",
+    "sr": "5/5"
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S2",
+    "model": "qwen2.5-coder-7b-instruct",
+    "model_key": "qwen",
+    "rc": 0,
+    "elapsed_s": 283.4,
+    "ts_start": "20260730_171627",
+    "log": "exp1_ankidroid_S2_qwen_20260730_171627.log",
+    "scenario_id": "S2",
+    "mttr_mean": 56.4,
+    "mttr_std": 2.5,
+    "speedup": "4.3x",
+    "sr": "5/5"
+  },
+  {
+    "app": "ankidroid",
+    "scenario": "S2",
+    "model": "meta-llama-3.1-8b-instruct",
+    "model_key": "llama",
+    "rc": 0,
+    "elapsed_s": 273.8,
+    "ts_start": "20260730_172110",
+    "log": "exp1_ankidroid_S2_llama_20260730_172110.log",
+    "scenario_id": "S2",
+    "mttr_mean": 54.2,
+    "mttr_std": 3.5,
+    "speedup": "4.4x",
+    "sr": "5/5"
+  }
+]

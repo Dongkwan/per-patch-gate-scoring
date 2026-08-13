@@ -1,0 +1,57 @@
+[
+  {
+    "app": "newpipe",
+    "scenario": "S1",
+    "model": "qwen2.5-coder-7b-instruct",
+    "model_key": "qwen",
+    "rc": 1,
+    "elapsed_s": 629.4,
+    "ts": "20260731_075015",
+    "log": "exp1_newpipe_S1_qwen_20260731_075015.log"
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S1",
+    "model": "meta-llama-3.1-8b-instruct",
+    "model_key": "llama",
+    "rc": 0,
+    "elapsed_s": 497.1,
+    "ts": "20260731_080044",
+    "log": "exp1_newpipe_S1_llama_20260731_080044.log",
+    "scenario_id": "S1",
+    "mttr_mean": 99.2,
+    "mttr_std": 1.4,
+    "speedup": "3.0x",
+    "sr": "5/5"
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S2",
+    "model": "qwen2.5-coder-7b-instruct",
+    "model_key": "qwen",
+    "rc": 0,
+    "elapsed_s": 511.6,
+    "ts": "20260731_080901",
+    "log": "exp1_newpipe_S2_qwen_20260731_080901.log",
+    "scenario_id": "S2",
+    "mttr_mean": 102.1,
+    "mttr_std": 2.3,
+    "speedup": "2.4x",
+    "sr": "5/5"
+  },
+  {
+    "app": "newpipe",
+    "scenario": "S2",
+    "model": "meta-llama-3.1-8b-instruct",
+    "model_key": "llama",
+    "rc": 0,
+    "elapsed_s": 509.7,
+    "ts": "20260731_081733",
+    "log": "exp1_newpipe_S2_llama_20260731_081733.log",
+    "scenario_id": "S2",
+    "mttr_mean": 101.6,
+    "mttr_std": 3.1,
+    "speedup": "2.4x",
+    "sr": "5/5"
+  }
+]

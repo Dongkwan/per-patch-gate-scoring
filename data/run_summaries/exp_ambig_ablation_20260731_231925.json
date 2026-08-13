@@ -1,0 +1,203 @@
+[
+  {
+    "arm": "full_lara",
+    "elapsed_s": 901.7,
+    "log": "exp_ambig_full_lara_20260731_230101.log",
+    "per_scenario": {
+      "SA1": {
+        "succ": 3,
+        "n": 5,
+        "mttr_mean": 76.5,
+        "mttr_std": 43.1
+      },
+      "SA2": {
+        "succ": 4,
+        "n": 5,
+        "mttr_mean": 38.4,
+        "mttr_std": 4.7
+      }
+    },
+    "raw_runs": [
+      [
+        "1",
+        "FAILED"
+      ],
+      [
+        "2",
+        "SUCCESS"
+      ],
+      [
+        "3",
+        "SUCCESS"
+      ],
+      [
+        "4",
+        "FAILED"
+      ],
+      [
+        "5",
+        "SUCCESS"
+      ],
+      [
+        "1",
+        "SUCCESS"
+      ],
+      [
+        "2",
+        "SUCCESS"
+      ],
+      [
+        "3",
+        "SUCCESS"
+      ],
+      [
+        "4",
+        "SUCCESS"
+      ],
+      [
+        "5",
+        "FAILED"
+      ]
+    ]
+  },
+  {
+    "arm": "patch_only",
+    "log": "exp_ambig_patch_only_20260731_231602.log",
+    "per_scenario": {
+      "SA1": {
+        "succ": 5,
+        "n": 5,
+        "mttrs": [
+          25.3,
+          19.6,
+          19.7,
+          18.9,
+          19.5
+        ]
+      },
+      "SA2": {
+        "succ": 5,
+        "n": 5,
+        "mttrs": [
+          19.4,
+          20.8,
+          21.6,
+          17.3,
+          20.1
+        ]
+      }
+    },
+    "runs": [
+      {
+        "success": true,
+        "mttr_s": 25.3,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1251,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_signin_click[chromium] PASSED                 [100%]\n\n============================== 1 passed in 1.57s ==============================\n",
+        "sid": "SA1",
+        "run": 1
+      },
+      {
+        "success": true,
+        "mttr_s": 19.6,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1505,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_signin_click[chromium] PASSED                 [100%]\n\n============================== 1 passed in 1.39s ==============================\n",
+        "sid": "SA1",
+        "run": 2
+      },
+      {
+        "success": true,
+        "mttr_s": 19.7,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1064,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_signin_click[chromium] PASSED                 [100%]\n\n============================== 1 passed in 1.38s ==============================\n",
+        "sid": "SA1",
+        "run": 3
+      },
+      {
+        "success": true,
+        "mttr_s": 18.9,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1293,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_signin_click[chromium] PASSED                 [100%]\n\n============================== 1 passed in 1.37s ==============================\n",
+        "sid": "SA1",
+        "run": 4
+      },
+      {
+        "success": true,
+        "mttr_s": 19.5,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1646,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_signin_click[chromium] PASSED                 [100%]\n\n============================== 1 passed in 1.36s ==============================\n",
+        "sid": "SA1",
+        "run": 5
+      },
+      {
+        "success": true,
+        "mttr_s": 19.4,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1278,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_login_button_by_text[chromium] PASSED         [100%]\n\n============================== 1 passed in 2.43s ==============================\n",
+        "sid": "SA2",
+        "run": 1
+      },
+      {
+        "success": true,
+        "mttr_s": 20.8,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1264,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_login_button_by_text[chromium] PASSED         [100%]\n\n============================== 1 passed in 1.31s ==============================\n",
+        "sid": "SA2",
+        "run": 2
+      },
+      {
+        "success": true,
+        "mttr_s": 21.6,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1370,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_login_button_by_text[chromium] PASSED         [100%]\n\n============================== 1 passed in 2.45s ==============================\n",
+        "sid": "SA2",
+        "run": 3
+      },
+      {
+        "success": true,
+        "mttr_s": 17.3,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1272,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_login_button_by_text[chromium] PASSED         [100%]\n\n============================== 1 passed in 1.34s ==============================\n",
+        "sid": "SA2",
+        "run": 4
+      },
+      {
+        "success": true,
+        "mttr_s": 20.1,
+        "note": "patched",
+        "rc0": 1,
+        "rc1": 0,
+        "patched_len": 1364,
+        "raw_tail": "============================= test session starts =============================\ncollecting ... collected 1 item\n\ntest_broken.py::test_ghost_login_button_by_text[chromium] PASSED         [100%]\n\n============================== 1 passed in 1.31s ==============================\n",
+        "sid": "SA2",
+        "run": 5
+      }
+    ]
+  }
+]

@@ -1,0 +1,1078 @@
+[Config] LLM     : http://localhost:1234/v1  model=qwen2.5-coder-7b-instruct
+[Config] App     : org.wikipedia.alpha
+[Config] N_RUNS  : 5
+[Config] Scenarios: ['S2']
+
+======================================================================
+  SCENARIO S2: Wrong Text Assertion  (n=5)
+  Bug Type : text assertion error
+  Source   : <WORKSPACE>\app\wikipedia\scenarios\s2_wrong_text.py
+======================================================================
+
+  ────────────────────────────────────────────────────────
+  Run 1/5  (S2: Wrong Text Assertion)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=50f76995
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_onboarding_headline_text"
+  ],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text F
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the `test_onboarding_headline_text` test case. The assertion failed because the expected text "All the world knowledge" did not match the actual text "All the world's knowledge". I will now collect the live UI h
+  Tool    : collect_ui_hierarchy
+  Args    : org.wikipedia.alpha
+  Obs     : {
+  "app": "org.wikipedia.alpha",
+  "buttons": [
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "Learn more about Wikipedia",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "",
+      "content_desc": "",
+  
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy confirms that the text view contains "All the world's knowledge", which matches the actual content on the screen. However, the test case is still failing because it expects "All the world knowledge" without the apostrophe-s. I w
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=de3cdeff
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+  [A2A Handoff]
+    tasks/send  task=85b9ab28  status=working
+    artifact: SymptomReport #b67a9b34  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=2766b1a3
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\wikipedia\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_onboarding_headline_text` is failing because it expects the text of a heading to be "All the world knowledge", but the actual text is "All the world's knowledge". This discrepancy is due to the presence
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py", "app_package": "org.wikipedia.alpha", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_on
+  Obs     : 1. Test function name: `test_onboarding_headline_text`
+2. The wrong value currently in the test: `'All the world knowledge'`
+3. The correct value it should be: `'All the world's knowledge'`
+
+BROKEN_VALUE: 'All the world knowledge'
+CORRECT_VALUE: 'All the world's knowledge'
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I need to update the test file `test_experiment.py` to replace the broken value `'All the world knowledge'` with the correct value `'All the world's knowledge'`.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world\'s knowledge' in the te
+  Obs     : [Error] ARGS must include test_file and repair_plan. Example: {"test_file": "app/wikipedia/scenarios/s2_wrong_text.py", "repair_plan": "1. ...", "report_summary": "..."}
+
+  ── Step 3 / 7 ──────────────────
+  Thought : It appears there was an error in the previous patch application due to missing arguments. I will reformat the repair plan and try again.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world\'s knowledge' in the te
+  Obs     : [Error] ARGS must include test_file and repair_plan. Example: {"test_file": "app/wikipedia/scenarios/s2_wrong_text.py", "repair_plan": "1. ...", "report_summary": "..."}
+
+  ── Step 4 / 7 ──────────────────
+  Thought : It seems there is a persistent issue with the arguments being passed to the `apply_patch` tool. I will ensure that all required parameters are correctly specified and try again.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world\'s knowledge' in the te
+  Obs     : [Error] ARGS must include test_file and repair_plan. Example: {"test_file": "app/wikipedia/scenarios/s2_wrong_text.py", "repair_plan": "1. ...", "report_summary": "..."}
+
+  ── Step 5 / 7 ──────────────────
+  Thought : It appears there is a persistent issue with the arguments being passed to the `apply_patch` tool. I will ensure that all required parameters are correctly specified and try again.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world\'s knowledge' in the te
+  Obs     : [Error] ARGS must include test_file and repair_plan. Example: {"test_file": "app/wikipedia/scenarios/s2_wrong_text.py", "repair_plan": "1. ...", "report_summary": "..."}
+
+  ── Step 6 / 7 ──────────────────
+  Thought : It appears there is a persistent issue with the arguments being passed to the `apply_patch` tool. I will ensure that all required parameters are correctly specified and try again.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world\'s knowledge' in the te
+  Obs     : [Error] ARGS must include test_file and repair_plan. Example: {"test_file": "app/wikipedia/scenarios/s2_wrong_text.py", "repair_plan": "1. ...", "report_summary": "..."}
+
+  ── Step 7 / 7 ──────────────────
+  Thought : It appears there is a persistent issue with the arguments being passed to the `apply_patch` tool. I will ensure that all required parameters are correctly specified and try again.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world\'s knowledge' in the te
+  Obs     : [Error] ARGS must include test_file and repair_plan. Example: {"test_file": "app/wikipedia/scenarios/s2_wrong_text.py", "repair_plan": "1. ...", "report_summary": "..."}
+  [Bus] RepairAgent → orchestrator  [result]  id=a90d8d38
+
+  [Orchestrator] RepairAgent 결과:
+    success=False  steps=7  error='max_steps_exceeded'
+    A2A Task #85b9ab28 → FAILED: max_steps_exceeded
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=418fce30
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_onboarding_headline_text"
+  ],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text F
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the `test_onboarding_headline_text` test case. The assertion failed because the expected text "All the world knowledge" did not match the actual text "All the world's knowledge". I will now collect the live UI h
+  Tool    : collect_ui_hierarchy
+  Args    : org.wikipedia.alpha
+  Obs     : {
+  "app": "org.wikipedia.alpha",
+  "buttons": [
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "Learn more about Wikipedia",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "",
+      "content_desc": "",
+  
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy confirms that the text view contains "All the world's knowledge", which matches the actual content on the screen. However, the test still failed because it expected "All the world knowledge" without the apostrophe-s. This discre
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=b9dcdde7
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+  [A2A Handoff]
+    tasks/send  task=279ed051  status=working
+    artifact: SymptomReport #9fea9609  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=adf95043
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\wikipedia\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_onboarding_headline_text` is failing because it expects the text of a heading element to be "All the world knowledge", but the actual text is "All the world's knowledge". This discrepancy is due to the 
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py", "app_package": "org.wikipedia.alpha", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_on
+  Obs     : 1. Test function name: `test_onboarding_headline_text`
+2. The wrong value currently in the test: `'All the world knowledge'`
+3. The correct value it should be: `'All the world's knowledge'`
+
+BROKEN_VALUE: 'All the world knowledge'
+CORRECT_VALUE: 'All the world's knowledge'
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I need to update the test file `test_experiment.py` to replace the broken value `'All the world knowledge'` with the correct value `'All the world's knowledge'`.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Locate the line in `test_onboarding_headline_text` where the assertion is mad
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\wikipedia\test_experiment.py (887 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file `test_experiment.py`. To ensure that the fix works as expected, I need to run the tests again.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\wikipedia\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.96s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=2466dfd6
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #279ed051 → COMPLETED
+
+  [Orchestrator] 2사이클 소진 → 원본 복구
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✗ FAILED
+  Cycles  : 0
+  Steps   : 14  (OpenClaw + RepairAgent)
+  MTTR    : 0.0s  (total: 90.4s)
+  A2A tasks dispatched: 2
+    cycle=1  task=85b9ab28  report=b67a9b34
+    cycle=2  task=279ed051  report=9fea9609
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=fa4e939f
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=abd88d50
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 1 → FAILED | MTTR=0.0s | steps=14
+
+  ────────────────────────────────────────────────────────
+  Run 2/5  (S2: Wrong Text Assertion)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=41731c47
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_onboarding_headline_text"
+  ],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text F
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the `test_onboarding_headline_text` test case. The assertion failed because the expected text "All the world knowledge" did not match the actual text "All the world's knowledge". I will now collect the live UI h
+  Tool    : collect_ui_hierarchy
+  Args    : org.wikipedia.alpha
+  Obs     : {
+  "app": "org.wikipedia.alpha",
+  "buttons": [
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "Learn more about Wikipedia",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "",
+      "content_desc": "",
+  
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy confirms that the text view contains "All the world's knowledge", which matches the actual content on the screen. This suggests that the issue might be with how the test is written rather than a bug in the app itself. I will now
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=fd757a2d
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+  [A2A Handoff]
+    tasks/send  task=eed67d65  status=working
+    artifact: SymptomReport #1ef9a1fa  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=dad72239
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\wikipedia\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_onboarding_headline_text` is failing because it expects the text of a heading element to be "All the world knowledge", but the actual text is "All the world's knowledge". This discrepancy is likely due 
+  Tool    : read_file
+  Args    : <WORKSPACE>\\app\\wikipedia\\test_experiment.py
+  Obs     : """
+Wikipedia Android Scenario S2 — Wrong Text Assertion (Compose UI 대응)
+========================================================================
+App      : Wikipedia Alpha (org.wikipedia.alpha, Jetpack Compose)
+Bug Type : 온보딩 화면 headline 텍스트 어서션 오류
+
+실제 headline: "All the world's knowledge"
+BUG: "Al
+
+  ── Step 2 / 7 ──────────────────
+  Thought : The test file has been read successfully. The issue is clearly identified in the assertion within the `test_onboarding_headline_text` function. The expected text "All the world knowledge" should be corrected to include the apostrophe-s.
+
+I will now a
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Correct the expected text in the assertion from 'All the world knowledge' to 
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\wikipedia\test_experiment.py (887 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I will run the tests to verify that the fix works.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\wikipedia\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.21s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have been successfully run, and the `test_onboarding_headline_text` is now passing without any assertion errors.
+
+The repair has been verified to be successful.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=1714d551
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #eed67d65 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=30a4b39d
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.63s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=7dddb612
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 76.42s  (total: 76.4s)
+  A2A tasks dispatched: 1
+    cycle=1  task=eed67d65  report=1ef9a1fa
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=73fafd85
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=6d96f8d1
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 2 → SUCCESS | MTTR=76.42s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 3/5  (S2: Wrong Text Assertion)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=c03bfe96
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_onboarding_headline_text"
+  ],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text F
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the `test_onboarding_headline_text` test case. The assertion failed because the expected text "All the world knowledge" did not match the actual text "All the world's knowledge". I will now collect the live UI h
+  Tool    : collect_ui_hierarchy
+  Args    : org.wikipedia.alpha
+  Obs     : {
+  "app": "org.wikipedia.alpha",
+  "buttons": [
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "Learn more about Wikipedia",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "",
+      "content_desc": "",
+  
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy confirms that the text view contains "All the world's knowledge", which matches the actual content on the screen. However, the test still failed because it expected "All the world knowledge" without the apostrophe-s. This discre
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=3457beca
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+  [A2A Handoff]
+    tasks/send  task=ef5b3fe6  status=working
+    artifact: SymptomReport #c9cfa89b  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=02e035e8
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\wikipedia\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_onboarding_headline_text` is failing because it expects the text of a heading element to be "All the world knowledge", but the actual text is "All the world's knowledge". This discrepancy is due to the 
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py", "app_package": "org.wikipedia.alpha", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_on
+  Obs     : 1. Test function name: `test_onboarding_headline_text`
+2. The wrong value currently in the test: `'All the world knowledge'`
+3. The correct value it should be: `'All the world's knowledge'`
+
+BROKEN_VALUE: 'All the world knowledge'
+CORRECT_VALUE: 'All the world's knowledge'
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I need to update the test file `test_experiment.py` to replace the broken value `'All the world knowledge'` with the correct value `'All the world's knowledge'`.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Locate the line in `test_onboarding_headline_text` where the assertion is mad
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\wikipedia\test_experiment.py (887 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file `test_experiment.py`. To ensure that the fix works as expected, I need to run the tests again.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\wikipedia\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.68s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=2024dcad
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #ef5b3fe6 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=091d5f5d
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.77s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=bb28e511
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 70.01s  (total: 70.0s)
+  A2A tasks dispatched: 1
+    cycle=1  task=ef5b3fe6  report=c9cfa89b
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=583eb631
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=3772218d
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 3 → SUCCESS | MTTR=70.01s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 4/5  (S2: Wrong Text Assertion)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=5a38d6d1
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_onboarding_headline_text"
+  ],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text F
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the `test_onboarding_headline_text` test case. The assertion failed because the expected text "All the world knowledge" did not match the actual text "All the world's knowledge". I will now collect the live UI h
+  Tool    : collect_ui_hierarchy
+  Args    : org.wikipedia.alpha
+  Obs     : {
+  "app": "org.wikipedia.alpha",
+  "buttons": [
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "Learn more about Wikipedia",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "",
+      "content_desc": "",
+  
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy confirms that the text view contains "All the world's knowledge", which matches the actual content on the screen. This suggests that the issue might be with how the test is written rather than a bug in the app itself. I will now
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=ccb5bde8
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+  [A2A Handoff]
+    tasks/send  task=a7dc427d  status=working
+    artifact: SymptomReport #123efd94  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=cf991faa
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\wikipedia\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_onboarding_headline_text` is failing because it expects the text of a heading element to be "All the world knowledge", but the actual text retrieved from the UI is different (likely due to encoding issu
+  Tool    : read_file
+  Args    : <WORKSPACE>\\app\\wikipedia\\test_experiment.py
+  Obs     : """
+Wikipedia Android Scenario S2 — Wrong Text Assertion (Compose UI 대응)
+========================================================================
+App      : Wikipedia Alpha (org.wikipedia.alpha, Jetpack Compose)
+Bug Type : 온보딩 화면 headline 텍스트 어서션 오류
+
+실제 headline: "All the world's knowledge"
+BUG: "Al
+
+  ── Step 2 / 7 ──────────────────
+  Thought : The test `test_onboarding_headline_text` is failing because it expects the text of a heading element to be "All the world knowledge", but the actual text retrieved from the UI includes an apostrophe-s, which is missing in the expected value.
+
+To fix 
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Update the expected value in the assertion to match the actual text retrieved
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\wikipedia\test_experiment.py (891 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file `<WORKSPACE>\\app\\wikipedia\\test_experiment.py`. Now, I need to verify that the fix passes by running the tests.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\\app\\wikipedia\\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.30s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have been successfully run, and the `test_onboarding_headline_text` is now passing without any failures.
+  Tool    : finish
+  Args    : success
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=3fc4013f
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #a7dc427d → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=2af54a5e
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.84s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=485808fd
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 73.86s  (total: 73.9s)
+  A2A tasks dispatched: 1
+    cycle=1  task=a7dc427d  report=123efd94
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=54bfbfc7
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=d11d6ec9
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 4 → SUCCESS | MTTR=73.86s | steps=6
+
+  ────────────────────────────────────────────────────────
+  Run 5/5  (S2: Wrong Text Assertion)
+  ────────────────────────────────────────────────────────
+
+############################################################
+  TRUE MULTI-AGENT SELF-HEALING SYSTEM
+############################################################
+  Test file : <WORKSPACE>\app\wikipedia\test_experiment.py
+  App URL   : org.wikipedia.alpha
+  Agents    : OpenClaw + RepairAgent
+  Transport : asyncio.Queue (A2A message bus)
+  Max cycles: 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 1 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=376d004f
+[OpenClaw] 메시지 버스 수신 대기...
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+[RepairAgent] 메시지 버스 수신 대기...
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [FAILED]
+=== FAILURES (JSON) ===
+{
+  "failed_tests": [
+    "test_onboarding_headline_text"
+  ],
+  "assertions": []
+}
+=== RAW OUTPUT ===
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text F
+
+  ── Step 2 / 4 ──────────────────
+  Thought : The pytest has identified a failure in the `test_onboarding_headline_text` test case. The assertion failed because the expected text "All the world knowledge" did not match the actual text "All the world's knowledge". I will now collect the live UI h
+  Tool    : collect_ui_hierarchy
+  Args    : org.wikipedia.alpha
+  Obs     : {
+  "app": "org.wikipedia.alpha",
+  "buttons": [
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "Learn more about Wikipedia",
+      "content_desc": "",
+      "clickable": true
+    },
+    {
+      "resource_id": "",
+      "full_id": "",
+      "text": "",
+      "content_desc": "",
+  
+
+  ── Step 3 / 4 ──────────────────
+  Thought : The live UI hierarchy shows that the text view contains "All the world's knowledge", which matches the actual text on the screen. However, the test case is still failing because it expects "All the world knowledge" without the apostrophe-s. I will no
+  Tool    : finish
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+◀ ◀ ◀ [OpenClaw] 완료  (3steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=f04813dd
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=2  error=''
+    answer: {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "app_package": "org.wikipedia.alpha",
+  "ui_facts": {
+    "app": "org.wikipedia.alpha",
+    "but
+
+  [A2A Handoff]
+    tasks/send  task=98ebcfb1  status=working
+    artifact: SymptomReport #73d7346e  (1 assertion(s))
+  [Bus] orchestrator → RepairAgent  [goal]  id=24f2855d
+
+▶ ▶ ▶ [RepairAgent] ReAct 루프 시작
+  Goal: You are a repair agent. The tests in '<WORKSPACE>\app\wikipedia\test_experiment.py' are failing. Here is the diagnosti...
+
+  ── Step 1 / 7 ──────────────────
+  Thought : The SymptomReport indicates that the test `test_onboarding_headline_text` is failing because it expects the text of a heading element to be "All the world knowledge", but the actual text is "All the world's knowledge". This discrepancy is likely due 
+  Tool    : analyze_report
+  Args    : {"test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py", "app_package": "org.wikipedia.alpha", "ui_facts": {...}, "failed_assertions": [{"test_name": "test_on
+  Obs     : 1. Test function name: `test_onboarding_headline_text`
+2. The wrong value currently in the test: `'All the world knowledge'`
+3. The correct value it should be: `'All the world's knowledge'`
+
+BROKEN_VALUE: 'All the world knowledge'
+CORRECT_VALUE: 'All the world's knowledge'
+
+  ── Step 2 / 7 ──────────────────
+  Thought : Based on the analysis, I need to update the test file `test_experiment.py` to replace the broken value with the correct value.
+  Tool    : apply_patch
+  Args    : {
+  "test_file": "<WORKSPACE>\\app\\wikipedia\\test_experiment.py",
+  "repair_plan": "1. Replace 'All the world knowledge' with 'All the world's knowledge' in the ass
+  Obs     : [OK] Patch applied to <WORKSPACE>\app\wikipedia\test_experiment.py (887 chars written)
+
+  ── Step 3 / 7 ──────────────────
+  Thought : The patch has been successfully applied to the test file. Now, I need to run the tests again to verify that the fix works.
+  Tool    : run_pytest
+  Args    : "<WORKSPACE>\\app\\wikipedia\\test_experiment.py"
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 12.93s ==============================
+
+
+  ── Step 4 / 7 ──────────────────
+  Thought : The tests have successfully passed after applying the patch. This confirms that the fix has resolved the issue.
+  Tool    : finish
+  Args    : "success"
+
+◀ ◀ ◀ [RepairAgent] 완료  (4steps)
+  [Bus] RepairAgent → orchestrator  [result]  id=e90697a2
+
+  [Orchestrator] RepairAgent 결과:
+    success=True  steps=3  error=''
+    A2A Task #98ebcfb1 → COMPLETED
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CYCLE 2 / 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [Bus] orchestrator → OpenClaw  [goal]  id=38b701bc
+
+▶ ▶ ▶ [OpenClaw] ReAct 루프 시작
+  Goal: You are a QA agent. Investigate the test suite '<WORKSPACE>\app\wikipedia\test_experiment.py' against the live applica...
+
+  ── Step 1 / 4 ──────────────────
+  Thought : I will start by running the pytest on the specified test file to check if any tests are failing.
+  Tool    : run_pytest
+  Args    : <WORKSPACE>\app\wikipedia\test_experiment.py
+  Obs     : [PASSED]
+============================= test session starts =============================
+collecting ... collected 1 item
+
+test_experiment.py::test_onboarding_headline_text PASSED                 [100%]
+
+============================= 1 passed in 13.20s ==============================
+
+
+  ── Step 2 / 4 ──────────────────
+  Thought : Since all tests have passed, I will call the finish function with 'ALL_TESTS_PASSED'.
+  Tool    : finish
+  Args    : ALL_TESTS_PASSED
+
+◀ ◀ ◀ [OpenClaw] 완료  (2steps)
+  [Bus] OpenClaw → orchestrator  [result]  id=0a300985
+
+  [Orchestrator] OpenClaw 결과:
+    success=True  steps=1  error=''
+    answer: ALL_TESTS_PASSED
+
+  ✓ ALL TESTS PASSED  (healed after 1 repair cycle(s))
+
+############################################################
+  FINAL SUMMARY
+############################################################
+  Result  : ✓ SUCCESS
+  Cycles  : 1
+  Steps   : 6  (OpenClaw + RepairAgent)
+  MTTR    : 76.11s  (total: 76.1s)
+  A2A tasks dispatched: 1
+    cycle=1  task=98ebcfb1  report=73d7346e
+
+  To re-run: copy '<WORKSPACE>\app\wikipedia\test_experiment.py.bak' back to '<WORKSPACE>\app\wikipedia\test_experiment.py'
+  [Bus] orchestrator → OpenClaw  [shutdown]  id=7fa27694
+  [Bus] orchestrator → RepairAgent  [shutdown]  id=e2cd2965
+[OpenClaw] shutdown → 종료
+[RepairAgent] shutdown → 종료
+  Run 5 → SUCCESS | MTTR=76.11s | steps=6
+
+##############################################################################
+  ANDROID EXPERIMENT RESULTS — Wikipedia  (n=5)  model=qwen2.5-coder-7b-instruct
+##############################################################################
+Scen  Bug Type                              MTTR mean±std  Manual  Speedup    SR
+──────────────────────────────────────────────────────────────────────────────
+S2    text assertion error                      74.1±3.0s    240s     3.2x   4/5
+──────────────────────────────────────────────────────────────────────────────
+
+  Raw MTTR: [[0.0, 76.42, 70.01, 73.86, 76.11]]
+  Raw Steps: [[14, 6, 6, 6, 6]]
