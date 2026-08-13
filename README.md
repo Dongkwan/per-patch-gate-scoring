@@ -1,9 +1,9 @@
-# Per-Patch Scoring of a Pre-Test Gate for UI Test Repair — Replication Data
+# Per-Patch Scoring of Validation Gates for UI Test Repair — Replication Data
 
 Derived data and figures for:
 
 > Dong Kwan Kim. *Episode-Level Evaluation Hides False Acceptances: Per-Patch
-> Scoring of a Pre-Test Gate for UI Test Repair.*
+> Scoring of Validation Gates for UI Test Repair.*
 > **Software: Practice and Experience**, 2026.
 
 This repository holds the **derived data and figures** behind every number
@@ -45,10 +45,10 @@ data/
   fa_taxonomy.csv            FA classified by the oracle value enforced
   fa_events.csv              one row per false acceptance
   rejections_by_check.csv    rejections attributed to each gate check
-  android_n5.csv             contextual n=5 replication
+  replication_n5.csv         contextual n=5 replication, both platforms
   holdouts.csv               two holdout studies, full pipeline vs patch-only
   healenium.csv              production locator-healing baseline
-  run_summaries/             per-run JSON summaries (9 files)
+  run_summaries/             per-run JSON summaries (10 files)
 logs/                        raw run logs for the 180 gate-live runs (32 files)
 figures/
   fig1_running_example.{pdf,png}
@@ -169,8 +169,9 @@ Read these before drawing conclusions from the files.
   executed, so this data can establish false acceptance but not false
   rejection.
 - **MTTR is a mean over successful runs only**, which is a poor summary for
-  small right-skewed samples. Raw per-run timings are retained for the
-  patch-only arm but not for the full pipeline.
+  small right-skewed samples. `holdouts.csv` therefore also carries the median
+  and the individual per-run timings for both arms, so any other summary can
+  be recomputed.
 - **Seeded faults**, not mined real ones, back the main results.
 
 ## How the logs were prepared
