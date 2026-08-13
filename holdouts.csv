@@ -1,0 +1,9 @@
+holdout,arm,scenario,n,successes,mttr_mean_s,mttr_sd_s,mttr_median_s,mttr_per_run_s
+ambiguous_locator,full_lara,SA1,5,3,76.5,43.1,57.7,45.86 57.73 125.79
+ambiguous_locator,full_lara,SA2,5,4,38.4,4.7,36.1,45.42 36.07 36.10 36.01
+ambiguous_locator,patch_only,SA1,5,5,20.6,2.6,19.6,25.30 19.60 19.70 18.90 19.50
+ambiguous_locator,patch_only,SA2,5,5,19.8,1.6,20.1,19.40 20.80 21.60 17.30 20.10
+dynapp,full_lara,SD1,5,5,37.7,1.9,37.9,37.86 38.76 35.21 40.19 36.47
+dynapp,full_lara,SD2,5,3,109.4,40.1,97.7,153.97 76.44 97.65
+dynapp,patch_only,SD1,5,5,25.1,3.3,24.3,24.30 21.30 25.90 23.90 30.20
+dynapp,patch_only,SD2,5,5,40.4,7.0,37.0,52.70 36.50 38.90 36.80 37.00
