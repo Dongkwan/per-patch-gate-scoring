@@ -84,6 +84,7 @@ One row per false acceptance (41 rows).
 | `subject` | Application under test |
 | `enforced_oracle` | The `correct_value` taken to have been enforced |
 | `class` | Taxonomy class, as above |
+| `oracle_source` | Which log line `enforced_oracle` was read from: `SymptomReport echo` (30 events) or `Check2 rejection` (11). The echo dominates, so what the taxonomy mostly classifies is the value the report supplied — the value a report-level precondition would screen. |
 
 > **Caveat.** `enforced_oracle` is **reconstructed**. The logs truncate the
 > arguments of every `apply_patch` call, so the value actually enforced on an
@@ -134,7 +135,9 @@ Two holdout studies built so that live grounding should have an advantage.
 | `arm` | `full_lara` (full pipeline) or the patch-only synthesizer |
 | `scenario` | SA1/SA2 or SD1/SD2 |
 | `n`, `successes` | Runs and repairs |
-| `mttr_mean_s`, `mttr_std_s` | Over successful runs only |
+| `mttr_mean_s`, `mttr_sd_s` | Over successful runs only. **Sample** standard deviation (`n-1`) in both arms. The batch summaries in `run_summaries/` are not consistent on this — they carry a population SD for the patch-only arm and a sample SD for the full arm — so these columns are recomputed from `mttr_per_run_s` rather than copied. |
+| `mttr_median_s` | Median over successful runs. Reported because the mean is a poor summary for these small, right-skewed samples; on SD2 the full-pipeline median is 97.7 s against a mean of 109.4 s. |
+| `mttr_per_run_s` | The individual successful-run timings, space separated, so any other summary can be recomputed. |
 
 Pooled: patch-only 20/20 against the full pipeline 15/20.
 
@@ -145,9 +148,11 @@ Production locator healing (Healenium 4.0.0) on the six web cells at n=3.
 | Column | Description |
 |---|---|
 | `app`, `scenario`, `run` | Cell and run index |
-| `broken_locator`, `correct_locator` | The seeded fault |
+| `broken_locator`, `correct_locator` | The seeded fault. In the three S2 cells the two are **identical**: an assertion-value fault leaves the locator untouched, so a locator healer has nothing to substitute. |
 | `success` | Whether the locator was healed |
 | `mttr_s` | Healing time; sub-second because it substitutes a locator in memory and never runs a repair loop |
+| `healed_to` | The element healing resolved to, when it resolved to one. Empty in the four `not_healed` cells; `LOGIN` on Taiga S2, where the element was found and the test still failed on the text. On the one healed cell, Ghost S1, all three runs resolved to an element labelled `Forgot?` rather than the primary sign-in button the scenario targets — the arm's success criterion is only `is_displayed()` on whatever the healed selector returns, so the 3/3 does not establish that the intended control was recovered. |
+| `error` | Failure mode: `not_healed` (no candidate similar enough to the broken selector) or `text_mismatch` (element found, assertion value still wrong). Empty on the healed cell. |
 
 Total 3/18, all three on the same cell (Ghost S1).
 
