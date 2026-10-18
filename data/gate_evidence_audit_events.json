@@ -1,0 +1,2016 @@
+[
+ {
+  "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+  "subject": "ankidroid",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "{}",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "{}"
+  ],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_llama_20260730_171125.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/getStartedButton",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selector)",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "(element not found — wrong resource-id or selector)",
+  "enforced_precondition": "sentinel"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selector)",
+  "precondition": "sentinel",
+  "prior_check2_values": [
+   "(element not found — wrong resource-id or selector)"
+  ],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S1_qwen_20260730_170513.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_llama_20260730_172110.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_llama_20260730_172110.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_llama_20260730_172110.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_llama_20260730_172110.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_llama_20260730_172110.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_qwen_20260730_171627.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_qwen_20260730_171627.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_qwen_20260730_171627.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_qwen_20260730_171627.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_ankidroid_S2_qwen_20260730_171627.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S1_llama_20260731_080044.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.schabi.newpipe:id/action_search",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S1_llama_20260731_080044.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.schabi.newpipe:id/action_search",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S1_llama_20260731_080044.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.schabi.newpipe:id/action_search",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S1_llama_20260731_080044.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.schabi.newpipe:id/action_search",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S1_llama_20260731_080044.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.schabi.newpipe:id/action_search",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selec",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.example.newpipe:id/search_bu",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selec",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_newpipe_S1_qwen_20260731_075015.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.example.newpipe:id/search_bu",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_newpipe_S2_llama_20260731_081733.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_llama_20260731_081733.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_llama_20260731_081733.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_llama_20260731_081733.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_llama_20260731_081733.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_qwen_20260731_080901.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_qwen_20260731_080901.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_qwen_20260731_080901.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_qwen_20260731_080901.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_newpipe_S2_qwen_20260731_080901.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "new UiSelector().re",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onboa",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onboa",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "new UiSelector().re",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onboa",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onboa",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Learn more about Wikipedia",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "new UiSelector().re",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "new UiSelector().re",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onboa",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp1_wiki_S1_llama_20260731_112247.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onboa",
+  "precondition": "pass",
+  "prior_check2_values": []
+ },
+ {
+  "log": "exp1_wiki_S1_qwen_20260731_111535.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "\"new UiSelector().text(\"Learn more about Wikipedia\")\"",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S1_qwen_20260731_111535.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "\"new UiSelector().text(\"Learn more about Wikipedia\")\""
+  ],
+  "check": "2",
+  "enforced_value": "\"new UiSelector().text(\"Learn more about Wikipedia\")\"",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S1_qwen_20260731_111535.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "\"new UiSelector().text(\"Learn more about Wikipedia\")\"",
+   "\"new UiSelector().text(\"Learn more about Wikipedia\")\""
+  ],
+  "check": "2",
+  "enforced_value": "\"new UiSelector().text(\"Learn more about Wikipedia\")\"",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "Wikipedia",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "Wikipedia"
+  ],
+  "check": "2",
+  "enforced_value": "@string/title",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "Wikipedia",
+   "@string/title"
+  ],
+  "check": "2",
+  "enforced_value": "Wikipedia",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "Wikipedia",
+   "@string/title",
+   "Wikipedia"
+  ],
+  "check": "2",
+  "enforced_value": "Wikipedia",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "Wikipedia",
+   "@string/title",
+   "Wikipedia",
+   "Wikipedia"
+  ],
+  "check": "2",
+  "enforced_value": "Wikipedia",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "login",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp1_wiki_S2_llama_20260731_114323.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "login"
+  ],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_qwen_20260731_113655.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_qwen_20260731_113655.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_qwen_20260731_113655.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_qwen_20260731_113655.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp1_wiki_S2_qwen_20260731_113655.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/getStartedButton",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/getstartedbutton",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.ichi2.anki:id/getstartedbutton",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selector)",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selector)",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_ankidroid_S2_qwen_gvpv_on_20260801_110803.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Get Started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "www.example.com",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "www.example.com"
+  ],
+  "check": "2",
+  "enforced_value": "www.example.com",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [
+   "www.example.com",
+   "www.example.com"
+  ],
+  "check": "2",
+  "enforced_value": "www.example.com",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "org.schabi.newpipe:id/action_search",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selec",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selec",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "2023-04-01T12:00:00+00:00",
+  "precondition": "type_mismatch",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "2023-04-01T12:00:00+00:00",
+  "enforced_precondition": "type_mismatch"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "2023-04-01T12:00:00+00:00",
+  "precondition": "type_mismatch",
+  "prior_check2_values": [
+   "2023-04-01T12:00:00+00:00"
+  ],
+  "check": "1"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S1_qwen_gvpv_on_20260801_113744.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "2023-04-01T12:00:00+00:00",
+  "precondition": "type_mismatch",
+  "prior_check2_values": [
+   "2023-04-01T12:00:00+00:00"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_newpipe_S2_qwen_gvpv_on_20260801_122346.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "Search YouTube",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_on_20260801_130728.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "check": "1"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_on_20260801_130728.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_on_20260801_130728.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "(element not found — wrong resource-id or selector)",
+  "enforced_precondition": "sentinel"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_on_20260801_130728.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong",
+  "precondition": "sentinel",
+  "prior_check2_values": [
+   "(element not found — wrong resource-id or selector)"
+  ],
+  "check": "2",
+  "enforced_value": "(element not found — wrong resource-id or selector)",
+  "enforced_precondition": "sentinel"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S1_qwen_gvpv_on_20260801_130728.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong",
+  "precondition": "sentinel",
+  "prior_check2_values": [
+   "(element not found — wrong resource-id or selector)",
+   "(element not found — wrong resource-id or selector)"
+  ],
+  "check": "2",
+  "enforced_value": "(element not found — wrong resource-id or selector)",
+  "enforced_precondition": "sentinel"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username",
+   "com.example.app:id/login_username"
+  ],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/search_input",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "org.wikipedia.alpha:id/search_input",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/search_input",
+  "precondition": "pass",
+  "prior_check2_values": [
+   "org.wikipedia.alpha:id/search_input"
+  ],
+  "check": "2",
+  "enforced_value": "org.wikipedia.alpha:id/search_input",
+  "enforced_precondition": "pass"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/search_input",
+  "precondition": "pass",
+  "prior_check2_values": [
+   "org.wikipedia.alpha:id/search_input",
+   "org.wikipedia.alpha:id/search_input"
+  ],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+  "subject": "ankidroid",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.ichi2.anki:id/get_started",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+  "subject": "ankidroid",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selector)",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "(element not found — wrong resource-id or selector)",
+  "enforced_precondition": "sentinel"
+ },
+ {
+  "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selec",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.example.newpipe:id/search_bu",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "(element not found — wrong resource-id or selec",
+  "precondition": "sentinel",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_gvpv_paired_newpipe_S1_qwen_gvpv_on_20260801_014619.log",
+  "subject": "newpipe",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "com.example.newpipe:id/search_bu",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "none",
+  "visible_value": "",
+  "precondition": "not_visible",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "report",
+  "visible_value": "All the world",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "pytest": "PASSED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "com.example.app:id/login_username",
+  "enforced_precondition": "foreign_namespace"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "admitted",
+  "analyze_input": "stub",
+  "visible_value": "com.example.app:id/login_username",
+  "precondition": "foreign_namespace",
+  "prior_check2_values": [
+   "com.example.app:id/login_username"
+  ],
+  "pytest": "FAILED"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/first_head",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "check": "1"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "org.wikipedia.alpha:id/onb",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "check": "0"
+ },
+ {
+  "log": "exp_wiki_gvpv_fixed_S2_gvpv_on_20260801_151001.log",
+  "subject": "wikipedia",
+  "verdict": "rejected",
+  "analyze_input": "report",
+  "visible_value": "org.wikipe",
+  "precondition": "pass",
+  "prior_check2_values": [],
+  "check": "2",
+  "enforced_value": "org.wikipedia.alpha:id/fragment_wikipedia_onboarding_title",
+  "enforced_precondition": "pass"
+ }
+]

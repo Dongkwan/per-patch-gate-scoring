@@ -1,0 +1,13 @@
+[project]
+name = "lara-gvpv-excerpt"
+version = "1.0.0"
+description = "Excerpt of the GVPV pre-test gate and the Lara repair loop it was evaluated in"
+requires-python = ">=3.10"
+dependencies = ["openai"]
+authors = []
+license = ""
+
+[tool.ruff.lint.per-file-ignores]
+# Broad catches and silent fallbacks are how the evaluated system tolerated
+# malformed LLM output; narrowing them would change the behaviour reported.
+"lara/*.py" = ["BLE001", "S110", "ASYNC230", "S603", "S607"]

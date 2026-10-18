@@ -5,18 +5,18 @@ columns unless stated. Percentages are 0–100, not 0–1.
 
 ## Vocabulary
 
-The article's unit of analysis is the **patch decision**, not the repair
-episode. These terms are used consistently across all files.
+Every quantity is keyed to the **gate decision**, not the repair episode.
+These terms are used consistently across all files.
 
 | Term | Meaning |
 |---|---|
 | **Gate-live run** | A run in which the GVPV gate actually executed. Not the same as a run *configured* with the gate on: the disable toggle silently failed in three cells, so the gate was live there despite an intended-off configuration. |
 | **Decision / adjudicated patch** | One `apply_patch` invocation that reached the gate and received a verdict. |
 | **Admitted** | The gate returned `VERIFIED` and the patch proceeded to pytest. |
-| **Rejected** | The gate returned `GVPV-FAIL`. The patch is never executed, so whether the rejection was correct is **not observable**. |
+| **Rejected** | The gate returned `GVPV-FAIL`. Rejected patches are not rolled back, so five were executed by a later test (four failed, one passed). For the other 40, whether the rejection was correct is **unobserved**. |
 | **False acceptance (FA)** | An admitted patch that the next pytest run rejected. Directly observable. |
 | **Unreached** | An `apply_patch` call that failed argument validation and never reached the gate (294 across the corpus). Excluded from all decision counts. |
-| **Enforced oracle** | The `correct_value` the gate is taken to have checked the patch against. **Reconstructed, not observed** — see the caveat in `fa_events.csv`. |
+| **Visible replacement value** | The replacement value visible in the log before an admission. It is **not** the value the gate enforced, which the logs do not record; see the caveat in `fa_events.csv`. The CSV column keeps the submitted version's name, `enforced_oracle`. |
 
 ---
 
@@ -66,11 +66,12 @@ Identical content; the second is co-located with the figure it draws.
 
 | Column | Description |
 |---|---|
-| `class` | `A1` foreign-application identifier; `A2` collector sentinel string; `A3` non-locator value (ISO-8601 timestamp); `B` everything not provably invalid, undetermined |
+| `class` | `A1` foreign-application identifier; `A2` collector sentinel string; `A3` non-locator value (ISO-8601 timestamp); `B` everything else, undetermined |
 | `n` | Count. A1 14, A2 4, A3 1, B 22 |
 
-Group A = A1 + A2 + A3 = 19 of 41 (46.3 %): values that provably cannot be a
-live UI fact. Group B is labelled **undetermined, not sound** — the logs
+Group A = A1 + A2 + A3 = 19 of 41 (46.3 %): admissions whose visible value
+cannot be a live UI fact. This does not establish that the value caused the
+failure, nor that rejecting it would have prevented it. Group B is labelled **undetermined, not sound** — the logs
 truncate both the report echo and the collected UI hierarchy, so those values
 cannot be shown to be live facts either way.
 
@@ -82,11 +83,11 @@ One row per false acceptance (41 rows).
 |---|---|
 | `log` | The run log the event was scored from, in `logs/` |
 | `subject` | Application under test |
-| `enforced_oracle` | The `correct_value` taken to have been enforced |
+| `enforced_oracle` | The replacement value visible in the log before the admission (column name kept from the submitted version) |
 | `class` | Taxonomy class, as above |
 | `oracle_source` | Which log line `enforced_oracle` was read from: `SymptomReport echo` (30 events) or `Check2 rejection` (11). The echo dominates, so what the taxonomy mostly classifies is the value the report supplied — the value a report-level precondition would screen. |
 
-> **Caveat.** `enforced_oracle` is **reconstructed**. The logs truncate the
+> **Caveat.** `enforced_oracle` is the **visible** value, not the enforced one. The logs truncate the
 > arguments of every `apply_patch` call, so the value actually enforced on an
 > admitted patch is never recorded. It is recovered from the nearest preceding
 > Check 2 rejection message, or failing that from the report echo in the
@@ -107,6 +108,42 @@ Only Check 2 supplies positive correctness evidence; the others are sanity
 constraints. Check 2 is skipped when the correct value is empty or is a
 collector placeholder, so a patch can be admitted with no positive test
 applied to it.
+
+## `data/gate_evidence_audit.json`
+
+Aggregate output of the evidence audit added in revision. It re-walks the same
+188 decisions as the per-decision scorer and records what the logs show about
+the evidence behind each one. Outcome keys are `FA`, `TA` (admitted, next test
+passed), `no_verdict` (admitted, run ended first), and `rejected`.
+
+| Key | Contents |
+|---|---|
+| `decisions`, `admitted`, `rejected`, `fa`, `ta`, `admitted_no_verdict` | Totals (188, 143, 45, 41, 101, 1) |
+| `analyze_input` | What the `analyze_report` call in the same repair loop received: `report`, `stub` (the placeholder string `SymptomReport JSON string`), or `none` (no analysis call), by outcome |
+| `admitted_after_check2_rejection_same_loop` | Admissions re-issued after a Check 2 rejection in the same loop |
+| `traceability` | `untraceable` / `traceable` admissions by outcome (44 / 99), and `sentinel_visible_on_admission` |
+| `visible_value_precondition` | Result of the schema, type, and namespace precondition on each decision's visible value: `pass`, `sentinel`, `foreign_namespace`, `type_mismatch`, `not_visible` |
+| `precondition_replay` | Admissions the precondition would have flagged (`fa_blocked` 19, `ta_blocked` 6) or could not check (`fa_not_visible` 5, `ta_not_visible` 18), with reasons |
+| `admitted_by_subject_and_input` | Admissions by subject and analysis input; `_FA` suffix counts false acceptances |
+| `check2_rejections_by_enforced_value` | The 33 Check 2 rejections by precondition result |
+| `check2_enforced_values` | Every value enforced by a Check 2 rejection, with counts (printed in full by the gate) |
+| `rejected_patch_next_event` | What followed each rejection: `superseded` by another patch, `end_of_run`, or executed (`FAILED` / `PASSED`) |
+| `rejected_patch_executed` | The five rejected patches a later test executed |
+| `rejections_by_check_and_input` | Rejections by check and analysis input |
+
+An admission is **untraceable** if the analysis step received no report, if
+there was no analysis step, if the request was re-issued after a Check 2
+rejection, if the visible value is the sentinel, or if no value is visible.
+These conditions overlap.
+
+## `data/gate_evidence_audit_events.json`
+
+One record per decision (188), in log order, with the fields the aggregates
+above are built from: `log`, `subject`, `verdict` (outcome key as above),
+`analyze_input`, `visible_value`, `precondition` (result on the visible
+value), `prior_check2_values` (values printed by earlier Check 2 rejections
+in the same loop), and, for rejections, `check`, `enforced_value`, and
+`enforced_precondition`.
 
 ## `data/replication_n5.csv`
 
@@ -166,7 +203,7 @@ Every on/off cell in the three paired sub-studies (20 rows = 10 pairs).
 | `app`, `scenario`, `backbone` | Cell identity |
 | `arm` | `on` or `off` |
 | `n`, `successes` | Runs and repairs in that arm |
-| `in_paired_contrast` | `yes` for the seven log-verified pairs plotted in Figure 3 |
+| `in_paired_contrast` | `yes` for the seven log-verified pairs plotted in Figure 4 of the revised article |
 | `exclusion_reason` | Why a pair was excluded; empty when included |
 
 Three pairs are excluded because the off-arm toggle silently failed, leaving
@@ -214,9 +251,8 @@ names. They are the same two agents.
 
 `OpenClaw` is the local name of the detector implemented for this study. It is
 **unrelated to any similarly named third-party project** — nothing outside this
-study's own code is imported or depended on. The standalone proof-of-concept
-agents under `poc/` use different step caps and were **not** used for any
-reported run.
+study's own code is imported or depended on. The code excerpt in `code/`
+shows the AnkiDroid agents; see `code/README.md`.
 
 ### Two things to expect when reading a log
 

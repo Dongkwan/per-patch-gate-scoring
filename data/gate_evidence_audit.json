@@ -1,0 +1,177 @@
+{
+  "decisions": 188,
+  "admitted": 143,
+  "rejected": 45,
+  "fa": 41,
+  "ta": 101,
+  "admitted_no_verdict": 1,
+  "analyze_input": {
+    "FA": {
+      "report": 30,
+      "stub": 11
+    },
+    "TA": {
+      "stub": 6,
+      "report": 87,
+      "none": 8
+    },
+    "no_verdict": {
+      "report": 1
+    },
+    "rejected": {
+      "stub": 19,
+      "report": 26
+    }
+  },
+  "admitted_after_check2_rejection_same_loop": {
+    "FA": 9,
+    "TA": 5,
+    "no_verdict": 0
+  },
+  "traceability": {
+    "untraceable": {
+      "FA": 20,
+      "TA": 24,
+      "no_verdict": 0
+    },
+    "traceable": {
+      "FA": 21,
+      "TA": 77,
+      "no_verdict": 1
+    },
+    "sentinel_visible_on_admission": {
+      "FA": 4,
+      "TA": 3
+    }
+  },
+  "visible_value_precondition": {
+    "FA": {
+      "pass": 17,
+      "sentinel": 4,
+      "foreign_namespace": 14,
+      "not_visible": 5,
+      "type_mismatch": 1
+    },
+    "TA": {
+      "not_visible": 18,
+      "pass": 77,
+      "sentinel": 3,
+      "foreign_namespace": 3
+    },
+    "no_verdict": {
+      "pass": 1
+    },
+    "rejected": {
+      "not_visible": 14,
+      "sentinel": 7,
+      "pass": 7,
+      "type_mismatch": 2,
+      "foreign_namespace": 15
+    }
+  },
+  "precondition_replay": {
+    "fa_blocked": 19,
+    "ta_blocked": 6,
+    "fa_not_visible": 5,
+    "ta_not_visible": 18,
+    "fa_blocked_by_reason": {
+      "sentinel": 4,
+      "foreign_namespace": 14,
+      "type_mismatch": 1
+    },
+    "ta_blocked_by_reason": {
+      "sentinel": 3,
+      "foreign_namespace": 3
+    }
+  },
+  "admitted_by_subject_and_input": {
+    "ankidroid": {
+      "stub": 2,
+      "report": 38,
+      "report_FA": 6,
+      "none": 1
+    },
+    "newpipe": {
+      "report": 27,
+      "report_FA": 8,
+      "stub_FA": 1
+    },
+    "wikipedia": {
+      "report_FA": 16,
+      "report": 23,
+      "stub": 4,
+      "none": 7,
+      "stub_FA": 10
+    }
+  },
+  "check2_rejections_by_enforced_value": {
+    "pass": 17,
+    "sentinel": 5,
+    "type_mismatch": 1,
+    "foreign_namespace": 10
+  },
+  "check2_enforced_values": {
+    "{}": 1,
+    "(element not found — wrong resource-id or selector)": 5,
+    "\"new UiSelector().text(\"Learn more about Wikipedia\")\"": 3,
+    "Wikipedia": 4,
+    "@string/title": 1,
+    "login": 1,
+    "com.ichi2.anki:id/getstartedbutton": 1,
+    "www.example.com": 3,
+    "2023-04-01T12:00:00+00:00": 1,
+    "com.example.app:id/login_username": 10,
+    "org.wikipedia.alpha:id/search_input": 2,
+    "org.wikipedia.alpha:id/fragment_wikipedia_onboarding_title": 1
+  },
+  "rejected_patch_next_event": {
+    "Check2/superseded": 25,
+    "Check2/end_of_run": 4,
+    "Check2/FAILED": 3,
+    "Check0/superseded": 5,
+    "Check1/superseded": 3,
+    "Check0/end_of_run": 3,
+    "Check0/FAILED": 1,
+    "Check2/PASSED": 1
+  },
+  "rejected_patch_executed": [
+    {
+      "log": "exp1_wiki_S2_llama_20260731_114323.log",
+      "check": "2",
+      "next": "FAILED",
+      "enforced_value": "Wikipedia"
+    },
+    {
+      "log": "exp_gvpv_ext_ankidroid_S1_qwen_gvpv_on_20260801_103616.log",
+      "check": "2",
+      "next": "FAILED",
+      "enforced_value": "com.ichi2.anki:id/getstartedbutton"
+    },
+    {
+      "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_off_20260801_134056.log",
+      "check": "0",
+      "next": "FAILED",
+      "enforced_value": null
+    },
+    {
+      "log": "exp_gvpv_ext_wikipedia_S2_qwen_gvpv_on_20260801_132044.log",
+      "check": "2",
+      "next": "FAILED",
+      "enforced_value": "com.example.app:id/login_username"
+    },
+    {
+      "log": "exp_gvpv_paired_ankidroid_S1_qwen_gvpv_on_20260801_013112.log",
+      "check": "2",
+      "next": "PASSED",
+      "enforced_value": "(element not found — wrong resource-id or selector)"
+    }
+  ],
+  "rejections_by_check_and_input": {
+    "Check2/stub": 13,
+    "Check2/report": 20,
+    "Check0/report": 4,
+    "Check1/stub": 1,
+    "Check1/report": 2,
+    "Check0/stub": 5
+  }
+}

@@ -1,112 +1,98 @@
-# Per-Patch Scoring of Validation Gates for UI Test Repair — Replication Data
+# Operating a Pre-Test Validation Gate in an LLM-Based UI Test Repair Loop — Data and Code Excerpt
 
-Derived data and figures for:
+Replication material for:
 
-> Dong Kwan Kim. *Episode-Level Evaluation Hides False Acceptances: Per-Patch
-> Scoring of Validation Gates for UI Test Repair.*
-> **Software: Practice and Experience**, 2026.
+> Dong Kwan Kim. *Operating a Pre-Test Validation Gate in an LLM-Based UI
+> Test Repair Loop: What It Caught, What It Missed, and How to Score It.*
+> **Software: Practice and Experience**, 2026 (revised version).
 
-This repository holds the **derived data and figures** behind every number
-reported in the article, a data dictionary, and a mapping from each reported
-result to the file it comes from. The agent, gate, and analysis **source code
-is not included here**; it is available from the corresponding author on
-request (see [Source code](#source-code)).
+This repository holds:
+
+- the raw logs of the 180 gate-live runs;
+- the derived data and figures behind the reported results, including the
+  evidence audit added in revision;
+- an excerpt of the source code of the evaluated pipeline (`code/`): the gate,
+  the two agents, the orchestration loop, and the SymptomReport type;
+- a data dictionary, and a map from each reported result to its file.
+
+The submitted version of the article was titled *Episode-Level Evaluation
+Hides False Acceptances: Per-Patch Scoring of Validation Gates for UI Test
+Repair*. The data are the same runs; the revision reframed the article as an
+experience report and added the evidence audit.
 
 ---
 
 ## What the study measured
 
-A pre-test validation gate (Grounding-Verified Patch Validation, GVPV) decides
-whether an LLM-generated patch may proceed to the test suite. The article's
-central point is one of **unit of analysis**: scored per repair *episode*, any
-gate records zero false acceptances, because a successful episode ends on a
-patch the test accepted by definition. Scored per candidate *patch*, the same
-runs expose 41 false acceptances.
-
-Every quantity here is therefore keyed to **patch decisions**, not episodes.
+A pre-test gate, Grounding-Verified Patch Validation (GVPV), checks each
+LLM-generated patch before the test run. It has four lexical checks: the file
+parses (Check 0), the broken value is gone (Check 1), the replacement value
+is present (Check 2), and the assertion count did not fall (Check 3). Every
+quantity here is keyed to **gate decisions**, not repair episodes. Each
+admission is paired with the verdict of the next test run.
 
 | | |
 |---|---|
 | Gate-live runs | 180 |
-| Patch decisions adjudicated | 188 |
+| Gate decisions | 188 |
 | Admitted | 143 |
-| Rejected | 45 (23.9 %) |
-| Admitted but failed the next pytest (false acceptance) | 41 (28.7 %) |
+| Rejected | 45 (9 parse failures, 3 Check 1, 33 Check 2, 0 Check 3) |
+| Admitted but failed the next test (false acceptance) | 41 (28.7 %) |
 
----
+Scored only over the final patches of successful episodes, the same runs show
+zero false acceptances, as they must for any gate.
+
+## What the evidence audit added
+
+The gate takes its expected values from the repair agent's own `apply_patch`
+request, not from the SymptomReport. The audit
+(`data/gate_evidence_audit.json`, one record per decision in
+`data/gate_evidence_audit_events.json`) re-walks the same 188 decisions and
+records what the logs show about the evidence behind each one.
+
+- **36 of 188 decisions** followed an `analyze_report` call that received a
+  placeholder string instead of the report.
+- **44 of 143 admissions** were made under conditions in which the logs do
+  not establish that the enforced value came from the report. They failed
+  the next test at 45.5 %, against 21.2 % for the other 99 (descriptive;
+  decisions pooled across cells).
+- **16 of 33 Check 2 rejections** enforced a value that cannot be a live UI
+  fact: a foreign-package identifier, the collector's sentinel, or a
+  timestamp.
+- **Rejected patches are not rolled back.** Five were executed by a later
+  test: four failed and one passed. These are the only observations of
+  rejection correctness.
+- **A precondition replay** over the visible values flags 25 admissions:
+  19 that failed and 6 that passed. A further 23 admissions have no visible
+  value. This is an offline replay, not a re-run, and not a demonstrated fix.
 
 ## Repository layout
 
 ```
+code/                        excerpt of the evaluated pipeline (see code/README.md)
 data/
-  perpatch_summary.json      full derived per-patch analysis (JSON, authoritative)
+  perpatch_summary.json      per-decision scoring of the gate (authoritative)
+  gate_evidence_audit.json   evidence audit: aggregate counts
+  gate_evidence_audit_events.json  evidence audit: one record per decision
   per_substudy.csv           decisions and FA counts per sub-study
   fa_by_subject.csv          FA rate per application
-  fa_taxonomy.csv            FA classified by the oracle value enforced
+  fa_taxonomy.csv            FAs by the replacement value visible in the log
   fa_events.csv              one row per false acceptance
   rejections_by_check.csv    rejections attributed to each gate check
   replication_n5.csv         contextual n=5 replication, both platforms
   holdouts.csv               two holdout studies, full pipeline vs patch-only
-  healenium.csv              production locator-healing baseline
+  healenium.csv              exploratory Healenium probe
   run_summaries/             per-run JSON summaries (10 files)
-logs/                        raw run logs for the 180 gate-live runs (32 files)
-figures/
-  fig1_running_example.{pdf,png}
-  fig2_fa_stratified.{pdf,png,csv}
-  fig3_gvpv_paired.{pdf,png,csv}
+logs/                        raw logs of the 180 gate-live runs (32 files)
+figures/                     figure images and data (file names keep the
+                             submitted version's numbering; see RESULTS_MAP.md)
 DATA_DICTIONARY.md           every column of every file
 RESULTS_MAP.md               each reported table/figure/finding -> its file
 ```
 
----
+## Reproducing the paired contrast
 
-## Figures
-
-### Figure 2 — False-acceptance rate by application
-
-![False-acceptance rate by application](figures/fig2_fa_stratified.png)
-
-The pooled 28.7 % is not a property of the gate alone. Across the three
-subjects the rate spans 12.8 % to 43.3 %, a factor of 3.4, and Wikipedia
-alone supplies 42 % of the admissions and 63 % of the false acceptances. The
-gate logic is identical in all three; what differs is the quality of the
-report it verifies against. Data: `figures/fig2_fa_stratified.csv`.
-
-### Figure 3 — Repair success with and without the gate
-
-![Repair success rate with and without GVPV](figures/fig3_gvpv_paired.png)
-
-Seven log-verified paired cells: three improve, four tie, none regresses
-(42/60 with the gate against 38/60 without). The contrast is underpowered and
-sensitive to which cells are admitted — see
-[The exclusion rule](#the-exclusion-rule). Data:
-`figures/fig3_gvpv_paired.csv`.
-
-### Figure 1 — Running example
-
-![Running example](figures/fig1_running_example.png)
-
-Schematic of the AnkiDroid locator-fault workflow. No underlying data file.
-
----
-
-## Reproducing the headline numbers
-
-`data/perpatch_summary.json` is the authoritative derived artifact; the CSVs
-are flat projections of it for convenience. It is produced from `logs/` by the
-per-patch scorer (not included here — see [Source code](#source-code)).
-Expected output on this log set:
-
-| Key | Value |
-|---|---|
-| `totals` | runs 180, adjudicated 188, admitted 143, rejected 45, fa 41 |
-| `totals.fa_rate` | 28.7 |
-| `fa_taxonomy_auto` | A1 14, A2 4, A3 1, B 22 |
-
-The `fa_taxonomy_auto` counts are the ones reported in Table 5 of the article:
-group A (provably not a live UI fact) is 19 of 41, or 46.3 %.
-
-The paired contrast in Figure 3 is reproducible from
+The on/off contrast (Figure 4 of the revised article) can be reproduced from
 `figures/fig3_gvpv_paired.csv` alone:
 
 ```bash
@@ -122,19 +108,10 @@ EOF
 # off 38 / 60
 ```
 
----
-
-## The exclusion rule
-
-Three Wikipedia cells are excluded from the paired contrast because the
-GVPV-off toggle silently failed in their off arm — the gate was live in both
-arms, so the pair measures nothing. For the re-run S1 cell the seeded fault was
-additionally absent from the on arm. Every excluded cell is present in
-`figures/fig3_gvpv_paired.csv` with `in_paired_contrast = no` and an
-`exclusion_reason`, so the rule can be audited and relaxed.
-
-Relaxing it moves the result, and the article reports this rather than burying
-it:
+The contrast supports neither benefit nor equivalence. The sign test over the
+three discordant cells gives p = 0.25. One gate-on success ended on a patch
+the gate had rejected; not crediting it gives 41/60 against 38/60
+(p = 0.5). Relaxing the exclusion rule moves the result:
 
 | Cells admitted | With gate | Without gate | Difference |
 |---|---|---|---|
@@ -142,79 +119,65 @@ it:
 | All three excluded added back | 65/90 | 60/90 | +5.6 pp |
 | Only the two with a real seeded fault | 55/80 | 54/80 | +1.2 pp |
 
-None of the three variants is statistically distinguishable from zero. The
-case for the gate does not rest on a success-rate gain.
-
----
+Three Wikipedia cells are excluded because the gate's disable toggle silently
+failed in their off arm. Every excluded cell is in
+`figures/fig3_gvpv_paired.csv` with `in_paired_contrast = no` and an
+`exclusion_reason`.
 
 ## Scope and known limits of this data
 
-Read these before drawing conclusions from the files.
-
-- **The enforced oracle is reconstructed, not observed.** `fa_events.csv` gives
-  the `correct_value` the gate is taken to have enforced on each admitted
-  patch. The logs truncate the arguments of every `apply_patch` call, so this
-  value is recovered from the nearest preceding rejection message or report
-  echo. Because the gate reads that value from the agent's own patch request,
-  it may differ from the reconstruction. The `class` column inherits this
-  uncertainty.
-- **Group B is a residual class, not a homogeneous one.** It holds everything
-  the A rules did not catch: eight subject-namespace identifiers, four
-  assertion text values (type-appropriate for their patch site, since an
-  assertion fault's oracle is a string rather than a locator), and ten
-  selector expressions or namespace prefixes the log truncated. It is
-  undetermined rather than sound — the logs truncate both the report echo and
-  the collected UI hierarchy, so none of it can be shown to be a live fact.
-- **Rejection correctness is not observable.** A rejected patch is never
-  executed, so this data can establish false acceptance but not false
-  rejection.
-- **MTTR is a mean over successful runs only**, which is a poor summary for
-  small right-skewed samples. `holdouts.csv` therefore also carries the median
-  and the individual per-run timings for both arms, so any other summary can
-  be recomputed.
-- **Seeded faults**, not mined real ones, back the main results.
+- **The enforced value is not in the logs.** The logs truncate the arguments
+  of every `apply_patch` call. For admissions, the value the gate checked is
+  therefore unknown. `fa_events.csv` and `fa_taxonomy.csv` use the
+  replacement value *visible* in the log before each admission, which is not
+  necessarily the value the gate applied. For the sentinel class it cannot
+  have been.
+- **Group B of the taxonomy is undetermined, not sound.** It carries no
+  evidence that the remaining false acceptances are fixable by any
+  precondition.
+- **Rejection correctness is unobserved** except for the five rejected
+  patches that a later test executed.
+- **The time saved is an upper bound.** 45 rejections × 90 s ≈ 68 min,
+  assuming every rejection displaced a full cycle and was correct. Removing
+  the executed rejections and the parse failures (13 patches together) leaves
+  32 rejections, about 48 min, under the same assumption.
+- **MTTR is a mean over successful runs only.** `holdouts.csv` also carries
+  medians and per-run timings.
+- **Seeded faults**, not mined real ones, back the main results. The holdouts
+  did not test whether live grounding is necessary: a patch-only synthesizer
+  sidestepped them by changing locator strategy.
 
 ## How the logs were prepared
 
-The logs in `logs/` are the raw run output with exactly one edit: the author's
-local working directory was replaced throughout by the placeholder
+The logs in `logs/` are the raw run output with exactly one edit: the
+author's local working directory was replaced throughout by the placeholder
 `<WORKSPACE>`. No observation, verdict, timing, or ordering was changed.
-Re-running the per-patch scorer over the anonymised files reproduces
-`data/perpatch_summary.json` key for key, including all 41 false-acceptance
-events.
 
 The orchestrator wrote its progress messages in Korean, and the seeded test
 fixtures carry Korean docstrings that the logs echo. Neither carries any
-measurement, and the scorer ignores both. `DATA_DICTIONARY.md` translates the
-recurring lines.
+measurement. `DATA_DICTIONARY.md` translates the recurring lines.
 
-## What is deliberately not here
+## What is not here
 
-Only the data behind the reported results is included, to keep the repository
-small and navigable. Omitted sub-studies, all exploratory or contextual, and
-none of which any reported finding depends on:
-
-- extended backbone sweeps (six open-weight models)
-- mined-real-fault replay and fault-template diversification
-- web-platform replication and multi-fault/deep-navigation cells
-- the raw logs for the holdout and Healenium studies (their per-run JSON
-  summaries **are** included, in `data/run_summaries/`)
+- The remaining source code: experiment runners, pytest fixtures and seeded
+  fault scenarios, web collectors, the Healenium probe, the per-decision
+  scorer (`score_patches.py`), the evidence-audit script
+  (`gate_evidence_audit.py`), and the statistics scripts.
+- Raw logs of exploratory sub-studies that no reported finding depends on:
+  extended backbone sweeps, mined-real-fault replay, fault-template
+  diversification, web replication, multi-fault and deep-navigation cells,
+  and the holdout and Healenium runs (their per-run JSON summaries **are**
+  included, in `data/run_summaries/`).
 
 These are available from the corresponding author on request.
-
-## Source code
-
-The multi-agent orchestrator, the detector and repair agents, the GVPV gate,
-the seeded test scenarios, and the analysis scripts are available from the
-corresponding author on request.
 
 ## Citation
 
 ```bibtex
-@article{Kim2026PerPatch,
+@article{Kim2026Gate,
   author  = {Kim, Dong Kwan},
-  title   = {Episode-Level Evaluation Hides False Acceptances: Per-Patch
-             Scoring of a Pre-Test Gate for {UI} Test Repair},
+  title   = {Operating a Pre-Test Validation Gate in an {LLM}-Based {UI} Test
+             Repair Loop: What It Caught, What It Missed, and How to Score It},
   journal = {Software: Practice and Experience},
   year    = {2026}
 }
@@ -223,4 +186,5 @@ corresponding author on request.
 ## License
 
 Data and figures are released under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). No license is
+granted for the code excerpt in `code/`; it is provided for inspection.
