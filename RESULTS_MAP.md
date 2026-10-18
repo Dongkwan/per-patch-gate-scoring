@@ -76,11 +76,11 @@ script not included here; the counts it resamples are in
 | Request re-issued after a Check 2 rejection | 14 (9 FA) | audit → `admitted_after_check2_rejection_same_loop` |
 | Visible value is the collector sentinel | 7 (4 FA) | audit → `traceability.sentinel_visible_on_admission` |
 | No replacement value visible | 23 (5 FA) | audit → `visible_value_precondition` (`not_visible`) |
-| Untraceable / traceable admissions | 44 (20 FA) / 99 (21 FA) | audit → `traceability` |
+| At least one warning indicator observed / no indicator observed | 44 (20 FA) / 99 (21 FA) | audit → `traceability` (`untraceable` / `traceable`) |
 | Decisions after a placeholder analysis call | 36 of 188 | audit → `analyze_input` (`stub` across all outcomes) |
 
 The indicator rows overlap; their counts sum to 69, and their union is the 44
-untraceable admissions.
+admissions with at least one warning indicator.
 
 ### Section 4.3.4 — visible values and the precondition replay
 

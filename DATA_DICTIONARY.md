@@ -121,7 +121,7 @@ passed), `no_verdict` (admitted, run ended first), and `rejected`.
 | `decisions`, `admitted`, `rejected`, `fa`, `ta`, `admitted_no_verdict` | Totals (188, 143, 45, 41, 101, 1) |
 | `analyze_input` | What the `analyze_report` call in the same repair loop received: `report`, `stub` (the placeholder string `SymptomReport JSON string`), or `none` (no analysis call), by outcome |
 | `admitted_after_check2_rejection_same_loop` | Admissions re-issued after a Check 2 rejection in the same loop |
-| `traceability` | `untraceable` / `traceable` admissions by outcome (44 / 99), and `sentinel_visible_on_admission` |
+| `traceability` | `untraceable` (at least one warning indicator) / `traceable` (no indicator observed; provenance **not** verified) admissions by outcome (44 / 99), and `sentinel_visible_on_admission` |
 | `visible_value_precondition` | Result of the schema, type, and namespace precondition on each decision's visible value: `pass`, `sentinel`, `foreign_namespace`, `type_mismatch`, `not_visible` |
 | `precondition_replay` | Admissions the precondition would have flagged (`fa_blocked` 19, `ta_blocked` 6) or could not check (`fa_not_visible` 5, `ta_not_visible` 18), with reasons |
 | `admitted_by_subject_and_input` | Admissions by subject and analysis input; `_FA` suffix counts false acceptances |
@@ -131,10 +131,10 @@ passed), `no_verdict` (admitted, run ended first), and `rejected`.
 | `rejected_patch_executed` | The five rejected patches a later test executed |
 | `rejections_by_check_and_input` | Rejections by check and analysis input |
 
-An admission is **untraceable** if the analysis step received no report, if
+An admission carries a **warning indicator** (`untraceable` in the JSON) if the analysis step received no report, if
 there was no analysis step, if the request was re-issued after a Check 2
 rejection, if the visible value is the sentinel, or if no value is visible.
-These conditions overlap.
+These conditions overlap. They are warning indicators, not observations of a skipped or divergent check, which the logs cannot recover; an admission without any of them is not shown to have used a report-derived value.
 
 ## `data/gate_evidence_audit_events.json`
 
